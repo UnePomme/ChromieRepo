@@ -1,0 +1,8 @@
+{
+    "Lua.diagnostics.globals": [
+        "InterfaceOptions_AddCategory",
+        "ItemRefTooltip",
+        "SlashCmdList",
+        "ChatFrame1"
+    ]
+}

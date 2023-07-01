@@ -1,0 +1,9 @@
+## Interface: 30300
+## Title: ChromieMog
+## Notes: Keep track of which items are saved in the ChromieMog vault
+## Author: Shaggymods
+## Version: 1.3.0
+## SavedVariables: ChromieMog_TrackedItems
+
+ChromieMog.lua
+GetItemID.lua
