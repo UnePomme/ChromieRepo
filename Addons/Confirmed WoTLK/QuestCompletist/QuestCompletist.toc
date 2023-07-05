@@ -1,0 +1,11 @@
+## Interface: 30300
+## Version: 0.1
+## Title: Quest Completist (|cff2eb6ffFelbite Edit|r)
+## Notes: Enables you to see what quests you have completed, and what ones you have left to do.
+## SavedVariables: qcNPC qcUnknownQuests
+## SavedVariablesPerCharacter: qcQuestHistory qcQuest qcOptions
+
+DB.lua
+Logger.lua
+Core.lua
+QuestCompletist.xml

@@ -1,0 +1,31 @@
+﻿## Interface: 30300
+## Title: HandyNotes_Vendors
+## Notes: Database of Vendor locations for HandyNotes
+## Author: zarevak
+## Version: 1.2.5
+## X-Category: Map
+## X-eMail: zarevak at gmail dot com
+## SavedVariables: HandyNotes_VendorsDB
+## X-Curse-Packaged-Version: v1.2.5 Release
+## X-Curse-Project-Name: HandyNotes_Vendors
+## X-Curse-Project-ID: handy-notes_vendors
+## X-Curse-Repository-ID: wow/handy-notes_vendors/mainline
+
+## RequiredDeps: HandyNotes
+## OptionalDeps: Ace3, TomTom
+## DefaultState: Enabled
+
+## X-Credits: kergoth, ckknight, Xinhuan, Aiwendyl <Das Syndikat> (deDE), andy52005 (zhTW), yllelder (esES), Zuz666 (ruRU), akirra83 (frFR)
+## X-License: GPL v3 or later
+
+# Locale files
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\frFR.lua
+Locales\esES.lua
+Locales\koKR.lua
+Locales\ruRU.lua
+Locales\zhTW.lua
+
+# Core files
+addon.lua

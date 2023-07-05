@@ -1,0 +1,18 @@
+## Interface: 30000
+## LoadOnDemand: 1
+## Title: Lib: GuildPositions-1.0
+## Notes: Communicates with guild members for their positions on the world map
+## Author: ckknight
+## X-eMail: ckknight@gmail.com
+## Version: 1.0
+## X-Category: Library
+## X-License: MIT
+## OptionalDeps: ChatThrottleLib
+## X-Curse-Packaged-Version: r42
+## X-Curse-Project-Name: LibGuildPositions-1.0
+## X-Curse-Project-ID: libguildpositions-1-0
+## X-Curse-Repository-ID: wow/libguildpositions-1-0/mainline
+
+LibStub\LibStub.lua
+CallbackHandler-1.0\CallbackHandler-1.0.lua
+lib.xml

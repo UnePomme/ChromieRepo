@@ -1,0 +1,24 @@
+## Interface: 30300
+## Title: Grid2 |cd1ff7d0aAOE Heals|r
+## Notes: Display best targets for AOE Heals
+## Notes-esES: Muestra los mejores objetivos para las curas de area
+## Author: Kader (|cff808080bkader#5341|r)
+## Version: r736
+## Dependencies: Grid2
+## DefaultState: disabled
+## X-Date: 2022-10-04 @ 04:32 AM |cff808080UTC|r
+## X-Credits: Michael
+## X-Category: UnitFrame
+## X-Email: |cff20ff20bkader@mail.com|r
+## X-Website: https://github.com/bkader/Grid2-WoTLK
+## X-Discord: |cff20ff20https://discord.gg/a8z5CyS3eW|r
+
+AoeHeals.lua
+AoeHealsMapData.lua
+AoeHealsOptions.lua
+AoeHealsStatusRaid.lua
+AoeHealsStatusParty.lua
+AoeHealsStatusChain.lua
+AoeHealsStatusNeighbors.lua
+AoeHealsStatusHighlighter.lua
+AoeHealsStatusOutgoing.lua

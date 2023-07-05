@@ -1,0 +1,19 @@
+------------------------------------------------------------------------
+r144 | Cladhaire-15704 | 2010-05-03 09:38:18 +0000 (Mon, 03 May 2010) | 2 lines
+Changed paths:
+   A /tags/r143-release (from /trunk:143)
+
+Tagging r143-release
+
+------------------------------------------------------------------------
+r143 | Cladhaire-15704 | 2010-05-03 09:37:04 +0000 (Mon, 03 May 2010) | 4 lines
+Changed paths:
+   M /trunk/Clique.lua
+   M /trunk/CliqueOptions.lua
+   M /trunk/Localization.enUS.lua
+
+Added an option to trigger spellcast on the down portion of a click
+
+This option can be found in the Clique UI, under the 'options' panel.  When this option is active, any buttons that register for click-casting will be registered for 'AnyDown', which will cause spells to trigger on the down portion of the click.  By default, Clique continues to function as usual, triggering spellcasts on the up portion of a click.
+
+------------------------------------------------------------------------

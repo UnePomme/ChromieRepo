@@ -1,0 +1,218 @@
+----
+**1.1.14**
+*Updated Lil' Smokey (Companion)
+*Updated Pet Bombing (Companion)
+*Updated Gryphon Hatchling (Companion)
+*Updated Wind Rider Cub (Companion)
+*Added Lil' XT (Companion)
+*Added Blue Clockwork Rocketbot (Companion)
+*Added Celestial Steed (Mount)
+
+
+----
+**1.1.13**
+*Added Toxic Wasteling (Companion)
+*Added Big Love Rocket (Mount)
+
+----
+**1.1.12**
+*Added dismiss current pet by shift-clicking on summon button. (DesertDwarf)
+*Added PVP "on movement" feature to  config and addon: When enabled (DesertDwarf)
+ and if the player is PVP flagged, this will auto-dismiss on movement
+ and will disable the summon on movement.
+*Corrected minor spelling errors in programming. (DesertDwarf)
+*Corrected Swift Alliance Steed information
+*Added Icebound Frostbrood Vanquisher mount
+*Added Bloodbathed Frostbrood Vanquisher mount
+
+----
+**1.1.11**
+*Moved Deadly Gladiator's Frostwyrm to no longer obtainable
+*Moved Swift Mooncloth Carpet, Swift Ebonweave Carpet, Swift Spellfire
+ Carpet to no longer obtainable
+*Added info for Magic Rooster mount
+*Added info for Alarming Clockbot
+*Updated Wind Rider Cub, Gryphon Hatchling as possible online store
+ purchases
+*Changed summon button size to 35 from 50
+
+----
+**1.1.10**
+*Updated Info for Silver Covenant Hippogryph
+*Added Swift Alliance Steed
+
+----
+**1.1.9**
+*Added Argent Charger for Horde
+
+----
+**1.1.8**
+*Added Perky Pug Companion
+*Updated Black Qiraji Battle Tank
+*Added Blue Drake
+*Added Swift Horde Wolf
+*Updated TOC for 3.3
+
+----
+**1.1.7**
+*Added Oswald The Penguin for upcoming Battle.net merge
+*Added Calico Cat for patch 3.3
+*Added Albino Snake for patch 3.3
+
+----
+**1.1.6**
+*Updated Brewfest Ram info, added to no longer obtainable filter
+*Updated Swift Brewfest Ram info
+*Added Gundrak Hatchling pet
+*Reenabled missing pet/mount messages
+
+----
+**1.1.5**
+*Updated Mount Mimiron's Head
+*Added Mount Onyxian Drake
+*Added Pint-Sized Pink Pachyderm pet
+*Added Lil' K.T. pet
+*Added Core Hound Pup pet
+*Added Gryphon Hatchling pet
+*Added Wind Rider Cub pet
+*Added Zipao Tiger pet
+*Added Pandaren Monk pet
+*Added Spectral Tiger Cub pet
+*Added Tuskarr Kite pet
+*Added Onyxian Whelpling pet
+*Changed Battle-Bot to Warbot
+
+----
+**1.1.4**
+*Added Grunty pet
+*Updated Plump Turkey pet
+
+----
+**1.1.3**
+*Fixed wrong mount for Silver Covenant Hippogryph, ooops
+*Removed XS-001 Constructor Bot
+
+----
+**1.1.2**
+*Added Argent Warhorse
+*Added Argent Charger for Paladins
+*Added Ochre Skeletal Warhorse for Horde
+*Added Quel'dorei Steed for Alliance
+*Added Sunreaver Hawkstrider for Horde
+*Added Striped Dawnsaber for Alliance
+*Added Sunreaver Dragonhawk for Horde
+*Added Silver Covenant Hippogryph for Alliance
+*Added Magic Rooster mount from TCG Expansion
+*Added Shimmering Wyrmling
+*Added Darting Hatchling
+*Added Deviate Hatchling
+*Added Leaping Hatching
+*Added Obsidian Hatchling
+*Added Ravasaur Hatchling
+*Added Razormaw Hatchling
+*Added Razzashi Hatchling
+*Corrected Minor Spelling Errors
+
+----
+**1.1.1**
+*updated version and TOC
+*updated Venomhide Ravasaur information
+*added more to ToDo list
+*added Curious Oracle Hatchling and Curious Wolvar Pup
+
+----
+**1.1.0**
+*finally combined Lil' Smoky and Pet Bombling into one Engineer table
+*added flying carpets to mountinfo file as not available yet
+
+----
+**1.0.9**
+*fixed grammar and spelling errors
+*updated all (hopefully) incorrect 3D previews for alliance and horde
+*put mount and pet list in alphabetical order
+*added Battle-Bot as a promotional pet
+
+----
+**1.0.8**
+*fixed incorrect version number displayed
+*switched the change log to WikiCreole formatting for easier updating
+*corrected spelling errors in the change log
+
+----
+**1.0.7**
+* updated many missing 3D previews for companion pets and mounts
+* updated some information about pets or mounts
+* corrected some small spelling errors
+
+----
+**1.0.6**
+* added gray question mark for empty 3D preview images (thanks GUP)
+* updated drop information for Lil' Smoky and Pet Bombling
+
+----
+**1.0.5**
+* added Battle-Bot and fixed Black Tabby Cat Model (thanks to Tolerant)
+
+----
+**1.0.4**
+* added 3.1.2 Argent Tournament Mounts
+
+----
+**1.0.3**
+* re-tagged as release since the log-in error seems to be fixed in the latest betas
+* temporary disabled notification messages
+
+----
+**1.0.2**
+* added stealth check to prevent from breaking stealth on summoning a companion while moving forward
+
+----
+**1.0.1**
+* possible fix for math.random error
+* possible fix for engineering/tailoring mounts (again ^^)
+* button will automatically hide when character doesn't have a companion
+* fixed error when character doesn't have a companion
+
+----
+**1.0**
+* added the collect me summon button
+
+----
+**0.9.2**
+* fixed error on log-in
+* fixed forced auto-dismount when summoning a companion on moving forward
+
+----
+**0.9.1**
+* added option to turn on and off the 3d model preview (off by default)
+* added close button in 3d model preview as suggested by Tolerant
+* added option to summon pet on moving forward as suggested by DeathCab727 (off by default)
+
+----
+**0.9**
+* added possibility do get directly into the configuration menu /cm config
+* added priority based random companion summoning
+
+----
+**0.8.1**
+* possible fix for engineering and tailoring companions and mounts
+
+----
+**0.8**
+* added 3d model preview window
+
+----
+**0.7.1**
+* fixed error which appeared on first log-in when updating from 0.6 to 0.7
+* fixed error that companions/mounts on filtered list showed up as unknown to the add-on
+* fixed error on tailoring and engineering mounts 
+
+----
+**0.7**
+* added button to open the add-on on the blizzard pet/mount tab as suggested by Mazzop
+* added a graphical options menu
+* added filters to hide groups (like PVP, not obtainable anymore, trading card game,...) of pets and mounts from the missing and the ignore list
+
+----
+**0.6**
+* initial release

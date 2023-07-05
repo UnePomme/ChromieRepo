@@ -1,0 +1,30 @@
+﻿## Interface: 30300
+## Title: HandyNotes_Trainers
+## Notes: Database of Trainer locations for HandyNotes
+## Author: zarevak
+## Version: 1.2.13
+## X-Category: Map
+## X-eMail: zarevak at gmail dot com
+## SavedVariables: HandyNotes_TrainersDB
+## X-Curse-Packaged-Version: v1.2.13 Release
+## X-Curse-Project-Name: HandyNotes_Trainers
+## X-Curse-Project-ID: handy-notes_trainers
+## X-Curse-Repository-ID: wow/handy-notes_trainers/mainline
+
+## RequiredDeps: HandyNotes
+## OptionalDeps: Ace3, TomTom
+## DefaultState: Enabled
+
+## X-Credits: Nickenyfiken, kergoth, fixitman (testing and help), Mikma (icons), Aiwendyl <Das Syndikat> (deDE), andy52005 (zhTW), ckeurk (frFR), lepaperwan (frFR), Zasurus, yllelder (esES), Zuz666 (ruRU)
+## X-License: GPL v3 or later
+
+# Locale files
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\frFR.lua
+Locales\ruRU.lua
+Locales\zhTW.lua
+
+# Core files
+addon.lua

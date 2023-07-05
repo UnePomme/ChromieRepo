@@ -1,0 +1,8 @@
+## Interface: 30300
+## Title: PortalBox |cFF0FF0FFv0.8
+## Notes: A simple teleport and portal spell manager invoked by /port.
+## Version: 0.8
+## Dependencies:
+## SavedVariables: MinimapPos, MinimapPosUnboundY, MinimapPosUnboundX, HideMMIcon, KeepWindowOpen, windowCollapseState, MinimapButtonUnbind
+portalbox.lua
+portalbox.xml

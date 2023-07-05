@@ -1,0 +1,36 @@
+Icons are based on World of Warcraft ingame icons.
+
+Icons created by Mikma (used with permission):
+ - Alchemy.tga
+ - Blacksmithing.tga
+ - Cooking.tga
+ - Demon.tga
+ - Druid.tga
+ - Engineering.tga
+ - Enchanting.tga
+ - Firstaid.tga
+ - Fishing.tga
+ - Herbalism.tga
+ - Hunter.tga
+ - Jewelcrafting.tga
+ - Leatherworking.tga
+ - Mage.tga
+ - Mining.tga
+ - Misc.tga
+ - Paladin.tga
+ - Pet.tga
+ - Poison.tga
+ - Priest.tga
+ - Rogue.tga
+ - Shaman.tga
+ - Skinning.tga
+ - Tailoring.tga
+ - Warlock.tga
+ - Warrior.tga
+
+Icons created by Zarevak:
+ - Deathknight.tga
+ - Inscription.tga
+ - Portal.tga
+ - Riding.tga
+ - Weaponmaster.tga

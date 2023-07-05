@@ -1,0 +1,2408 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	
+<Script file="portalbox.lua"/>
+
+<Frame name="PortalBoxOptionsFrame">
+	<Scripts>
+		<OnLoad>
+			PortalBox_LoadPrefsPane(self);
+		</OnLoad>
+	</Scripts>
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString inherits="GameFontNormalLarge" text="PortalBox">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="16" y="-16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString inherits="GameFontWhite" text="Cache bouton mini map">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="41" y="-47"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString inherits="GameFontWhite" text="Detache bouton mini map">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="41" y="-77"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString inherits="GameFontWhite" text="Garder la fenetre apres la teleportation">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="41" y="-107"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+	<Frames>
+		<CheckButton name="PortalBoxChecbox1" inherits="OptionsCheckButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="15" y="-40"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if ( this:GetChecked() ) then
+						PlaySound("igMainMenuOptionCheckBoxOn");
+						PortalBox_MinimapButton:Hide();
+						PortalBoxChecbox3:Disable();
+						HideMMIcon = "1";
+						if (MinimapButtonUnbind == "1") then
+							PortalBox_MinimapButtonUnbound:Hide();
+						end
+					else
+						PlaySound("igMainMenuOptionCheckBoxOff");
+						PortalBoxChecbox3:Enable();
+						
+						HideMMIcon = "0";
+						if (MinimapButtonUnbind == "0") then
+							PortalBox_MinimapButton:Show();
+						else
+							PortalBox_MinimapButtonUnbound:Show();
+						end
+					end
+					
+					
+				</OnClick>
+				<OnShow>
+					if (HideMMIcon == "1") then
+						this:SetChecked(true);
+					end
+				</OnShow>
+			</Scripts>
+		</CheckButton>
+		<CheckButton name="PortalBoxChecbox3" inherits="OptionsCheckButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="15" y="-70"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if ( this:GetChecked() ) then
+						PlaySound("igMainMenuOptionCheckBoxOn");
+						
+						PortalBox_MinimapButton:Hide();
+						PortalBox_MinimapButtonUnbound:Show();
+						MinimapButtonUnbind = "1";
+					else
+						PlaySound("igMainMenuOptionCheckBoxOff");
+						
+						PortalBox_MinimapButton:Show();
+						PortalBox_MinimapButtonUnbound:Hide();
+						MinimapButtonUnbind = "0";
+					end
+					
+				</OnClick>
+				<OnShow>
+					if (MinimapButtonUnbind == "1") then
+						this:SetChecked(true);
+					end
+				</OnShow>
+			</Scripts>
+		</CheckButton>
+		<CheckButton name="PortalBoxChecbox2" inherits="OptionsCheckButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="15" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					if ( this:GetChecked() ) then
+						PlaySound("igMainMenuOptionCheckBoxOn");
+						KeepWindowOpen = "1";
+					else
+						PlaySound("igMainMenuOptionCheckBoxOff");
+						KeepWindowOpen = "0";
+					end
+					
+				</OnClick>
+				<OnShow>
+					if (KeepWindowOpen == "1") then
+						this:SetChecked(true);
+					end
+				</OnShow>
+			</Scripts>
+		</CheckButton>
+	</Frames>	
+</Frame>
+
+<Frame name="PortalboxMainFrame" hidden="true" frameStrata="DIALOG" movable="true" enableMouse="true" parent="UIParent">
+	<TitleRegion setAllPoints="true"/>
+	
+	<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<TileSize>
+		    <AbsValue val="32"/>
+		</TileSize>
+		<EdgeSize>
+			<AbsValue val="32"/>
+		</EdgeSize>
+		<BackgroundInsets>
+			<AbsInset left="11" right="12" top="12" bottom="11"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Scripts>
+		<OnLoad>
+			portalbox_OnLoad();
+			tinsert(UISpecialFrames,"PortalboxMainFrame");
+		</OnLoad>
+		<OnEvent>
+			portalbox_OnEvent();
+		</OnEvent>
+		<OnShow>
+			local teleCount = GetItemCount(17031)
+			local portalCount = GetItemCount(17032)
+			teleRuneStatus:SetText(teleCount);
+			portalRuneStatus:SetText(portalCount);
+			PlaySound("TalentScreenOpen");
+			if (windowCollapseState ~= "1") then
+				PortalboxMainFrame:SetScale(1.0);
+				collapseButton:SetNormalTexture("Interface/Buttons/UI-MinusButton-Up");
+				collapseButton:SetPushedTexture("Interface/Buttons/UI-MinusButton-Down");
+			else				
+				PortalboxMainFrame:SetScale(0.7);
+				collapseButton:SetNormalTexture("Interface/Buttons/UI-PlusButton-Up");
+				collapseButton:SetPushedTexture("Interface/Buttons/UI-PlusButton-Down");
+			end
+		</OnShow>
+		<OnHide>
+			PlaySound("TalentScreenClose");
+		</OnHide>
+	</Scripts>
+	<Size>
+		<AbsDimension x="742" y="527"/>
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER"/>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			
+			<FontString inherits="GlueFontNormalSmall" text="Portalbox">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="windowHeader">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+			<Texture file="Interface\AddOns\Portalbox\bg_right.tga">
+				<Size>
+					<AbsDimension x="512" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="292" y=""/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\AddOns\Portalbox\bg_left.tga">
+				<Size>
+					<AbsDimension x="512" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="10" y=""/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			
+			
+			<FontString name="teleRuneLabel" inherits="GameFontNormalLarge" text="Runes of Teleportation:">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="37" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="teleRuneStatus" inherits="GameFontNormalLarge" text="">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="250" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+			
+			
+			
+			<FontString name="portalRuneLabel" inherits="GameFontNormalLarge" text="Runes of Portal:">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="100" y="-175"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="portalRuneStatus" inherits="GameFontNormalLarge" text="">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="250" y="-175"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture name="windowHeader" file="Interface\AddOns\Portalbox\header.tga">
+				<Size>
+					<AbsDimension x="512" y="64"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="closeBoxBackground" file="Interface\DialogFrame\UI-DialogBox-Corner">
+				<Size>
+					<AbsDimension x="36" y="36"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-7" y="-9"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			
+		</Layer>
+	</Layers>
+	<Frames>
+		
+	
+	<Button inherits="UIPanelCloseButton">
+		<Size>
+			<AbsDimension x="37" y="37"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-2" y="-4"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	
+	<Button name="collapseButton">
+		<Size>
+			<AbsDimension x="20" y="20"/>
+		</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+					<Offset>
+						<AbsDimension x="14" y="-14"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture name="largeState" file="Interface\Buttons\UI-MinusButton-Up">
+					</Texture>
+				</Layer>
+			</Layers>
+			<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight">
+			</HighlightTexture>
+			<PushedTexture name="$parentPushedTexture" file="Interface\Buttons\UI-MinusButton-Down">
+			</PushedTexture>
+			<Scripts>
+				<OnClick>
+					portalBox_toggleCollapseState();
+				</OnClick>
+				<OnEnter>
+					GameTooltip:SetOwner(collapseButton, "ANCHOR_TOPLEFT")
+					GameTooltip:AddLine("Toggle window size")
+					GameTooltip:Show();
+				</OnEnter>
+				<OnLeave>
+					GameTooltip:Hide()
+				</OnLeave>
+			</Scripts>
+		</Button>
+	
+	
+	
+	<Button name="tele1" id="1" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="75" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="firstTele" file="Interface\Icons\Spell_Arcane_TeleportStormWind">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3561))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3561))
+				
+				if (GetSpellInfo(localSpellName) ~= nil) then
+					this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+					this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+					this:SetAlpha(1.0)
+					firstTele:SetDesaturated(false)
+				else
+					this:SetHighlightTexture(nil)
+					this:SetPushedTexture(nil)
+					this:SetAlpha(0.8)
+					firstTele:SetDesaturated(true)
+				end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3561))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Stormwind", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+			
+			
+	<Button name="tele2" id="2" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="166" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="secondTele" file="Interface\Icons\Spell_Arcane_TeleportIronforge">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3562))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3562))
+				
+				if (GetSpellInfo(localSpellName) ~= nil) then
+					this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+					this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+					this:SetAlpha(1.0)
+					secondTele:SetDesaturated(false)
+				else
+					this:SetHighlightTexture(nil)
+					this:SetPushedTexture(nil)
+					this:SetAlpha(0.8)
+					secondTele:SetDesaturated(true)
+				end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3562))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Ironforge", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	
+	<Button name="tele3" id="3" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="257" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="thirdTele" file="Interface\Icons\Spell_Arcane_TeleportDarnassus">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3565))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3565))
+				
+				if (GetSpellInfo(localSpellName) ~= nil) then
+					this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+					this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+					this:SetAlpha(1.0)
+					thirdTele:SetDesaturated(false)
+				else
+					this:SetHighlightTexture(nil)
+					this:SetPushedTexture(nil)
+					this:SetAlpha(0.8)
+					thirdTele:SetDesaturated(true)
+				end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3565))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Darnassus", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 30")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	
+	<Button name="tele4" id="4" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="348" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fourthTele" file="Interface\Icons\Spell_Arcane_TeleportExodar">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(32271))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(32271))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fourthTele:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fourthTele:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(32271))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Exodar", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele5" id="5" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="439" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fifthTele" file="Interface\Icons\Spell_Arcane_TeleportTheramore">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(49359))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(49359))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fifthTele:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fifthTele:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(49359))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Theramore", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 35")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele6" id="6" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="530" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="sixthTele" file="Interface\Icons\Spell_Arcane_TeleportShattrath">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(33690))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(33690))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				sixthTele:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				sixthTele:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(33690))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Shattrath", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 60")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele7" id="7" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="621" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="seventhTele" file="Interface\Icons\Spell_Arcane_TeleportDalaran">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(53140))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(53140))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				seventhTele:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				seventhTele:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(53140))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Dalaran", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 71")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="port1" id="1" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="75" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="firstPort" file="Interface\Icons\Spell_Arcane_PortalStormWind">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(10059))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(10059))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				firstPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				firstPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(10059))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Stormwind", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port2" id="2" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="166" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="secondPort" file="Interface\Icons\Spell_Arcane_PortalIronforge">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(11416))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(11416))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				firstPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				secondPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(11416))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Ironforge", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port3" id="3" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="257" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="thirdPort" file="Interface\Icons\Spell_Arcane_PortalDarnassus">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(11419))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(11419))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				thirdPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				thirdPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(11419))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Darnassus", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 50")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port4" id="4" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="348" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fourthPort" file="Interface\Icons\Spell_Arcane_PortalExodar">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(32266))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(32266))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fourthPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fourthPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(32266))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Exodar", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="port5" id="5" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="439" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fifthPort" file="Interface\Icons\Spell_Arcane_PortalTheramore">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(49360))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(49360))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fifthPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fifthPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(49360))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Theramore", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 35")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="port6" id="6" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="530" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="sixthPort" file="Interface\Icons\Spell_Arcane_PortalShattrath">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(33691))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(33691))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				sixthPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				sixthPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(33691))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Shattrath", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 65")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="port7" id="7" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="621" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="seventhPort" file="Interface\Icons\Spell_Arcane_PortalDalaran">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(53142))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(53142))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				seventhPort:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				seventhPort:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(53142))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Dalaran", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 74")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	
+</Frames>
+</Frame>
+
+<Frame name="PortalboxHordeFrame" hidden="true" frameStrata="DIALOG" movable="true" enableMouse="true" parent="UIParent">
+	<TitleRegion setAllPoints="true"/>
+	
+	<Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<TileSize>
+		    <AbsValue val="32"/>
+		</TileSize>
+		<EdgeSize>
+			<AbsValue val="32"/>
+		</EdgeSize>
+		<BackgroundInsets>
+			<AbsInset left="11" right="12" top="12" bottom="11"/>
+		</BackgroundInsets>
+	</Backdrop>
+	<Scripts>
+		<OnLoad>
+			tinsert(UISpecialFrames,"PortalboxHordeFrame");
+		</OnLoad>
+		<OnShow>
+			local hordeTeleCount = GetItemCount(17031)
+			local hordePortalCount = GetItemCount(17032)
+			hordeTeleRuneStatus:SetText(hordeTeleCount);
+			hordePortalRuneStatus:SetText(hordePortalCount);
+			PlaySound("TalentScreenOpen");
+			if (windowCollapseState ~= "1") then
+				PortalboxHordeFrame:SetScale(1.0);
+				collapseButtonHorde:SetNormalTexture("Interface/Buttons/UI-MinusButton-Up");
+				collapseButtonHorde:SetPushedTexture("Interface/Buttons/UI-MinusButton-Down");
+			else				
+				PortalboxHordeFrame:SetScale(0.7);
+				collapseButtonHorde:SetNormalTexture("Interface/Buttons/UI-PlusButton-Up");
+				collapseButtonHorde:SetPushedTexture("Interface/Buttons/UI-PlusButton-Down");
+			end
+		</OnShow>
+		<OnHide>
+			PlaySound("TalentScreenClose");
+		</OnHide>
+	</Scripts>
+	<Size>
+		<AbsDimension x="742" y="527"/>
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER"/>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			
+			<FontString inherits="GlueFontNormalSmall" text="Portalbox">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="windowHeader">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+			<Texture file="Interface\AddOns\Portalbox\bg_right.tga">
+				<Size>
+					<AbsDimension x="512" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="292" y=""/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\AddOns\Portalbox\bg_left.tga">
+				<Size>
+					<AbsDimension x="512" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="10" y=""/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			
+			
+			<FontString name="teleRuneLabel" inherits="GameFontNormalLarge" text="Runes of Teleportation:">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="100" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="hordeTeleRuneStatus" inherits="GameFontNormalLarge" text="">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="250" y="25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+			
+			
+			
+			<FontString name="portalRuneLabel" inherits="GameFontNormalLarge" text="Runes of Portal:">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="100" y="-175"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="hordePortalRuneStatus" inherits="GameFontNormalLarge" text="">
+				<FontHeight>
+					<AbsDimension x="10" y=""/>
+				</FontHeight>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="250" y="-175"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			
+		</Layer>
+		<Layer level="ARTWORK">
+			<Texture name="windowHeader" file="Interface\AddOns\Portalbox\header.tga">
+				<Size>
+					<AbsDimension x="512" y="64"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset>
+							<AbsDimension x="0" y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="closeBoxBackground" file="Interface\DialogFrame\UI-DialogBox-Corner">
+				<Size>
+					<AbsDimension x="36" y="36"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-7" y="-9"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		
+	
+	<Button inherits="UIPanelCloseButton">
+		<Size>
+			<AbsDimension x="37" y="37"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-2" y="-4"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	
+	<Button name="collapseButtonHorde">
+		<Size>
+			<AbsDimension x="20" y="20"/>
+		</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+					<Offset>
+						<AbsDimension x="14" y="-14"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Layers>
+				<Layer level="BACKGROUND">
+					<Texture name="largeState" file="Interface\Buttons\UI-MinusButton-Up">
+					</Texture>
+				</Layer>
+			</Layers>
+			<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight">
+			</HighlightTexture>
+			<PushedTexture name="$parentPushedTexture" file="Interface\Buttons\UI-MinusButton-Down">
+			</PushedTexture>
+			<Scripts>
+				<OnClick>
+					portalBox_toggleCollapseState();
+				</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(collapseButton, "ANCHOR_TOPLEFT")
+						GameTooltip:AddLine("Toggle window size")
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide()
+					</OnLeave>
+			</Scripts>
+		</Button>
+	
+	<Button name="tele1" id="1" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="75" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="firstTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportUndercity">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3563))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3563))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				firstTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				firstTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3563))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Undercity", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+			
+			
+	<Button name="tele2" id="2" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="166" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="secondTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportOrgrimmar">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3567))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3567))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				secondTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				secondTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3567))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Orgrimmar", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	
+	<Button name="tele3" id="3" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="257" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="thirdTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportThunderBluff">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(3566))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(3566))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				thirdTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				thirdTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(3566))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Thunder Bluff", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 30")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	
+	<Button name="tele4" id="4" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="348" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fourthTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportSilvermoon">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(32272))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(32272))
+				
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fourthTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fourthTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(32272))
+				
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Silvermoon", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 20")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele5" id="5" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="439" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fifthTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportStonard">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(49358))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(49358))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				firstTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fifthTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(49358))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Stonard", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 35")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele6" id="6" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="530" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="sixthTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportShattrath">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(35715))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(35715))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				sixthTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				sixthTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(35715))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Shattrath", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 60")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="tele7" id="7" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="621" y="80"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="seventhTeleHorde" file="Interface\Icons\Spell_Arcane_TeleportDalaran">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(53140))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(53140))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				seventhTeleHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				seventhTeleHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(53140))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Teleport: Dalaran", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 71")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="port1" id="1" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="75" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="firstPortHorde" file="Interface\Icons\Spell_Arcane_PortalUndercity">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(11418))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(11418))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				firstPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				firstPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(11418))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Undercity", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port2" id="2" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="166" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="secondPortHorde" file="Interface\Icons\Spell_Arcane_PortalOrgrimmar">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(11417))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(11417))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				secondPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				secondPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(11417))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Orgrimmar", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port3" id="3" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="257" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="thirdPortHorde" file="Interface\Icons\Spell_Arcane_PortalThunderBluff">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(11420))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(11420))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				thirdPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				thirdPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(11420))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Thunder Bluff", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 50")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+
+	<Button name="port4" id="4" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="348" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fourthPortHorde" file="Interface\Icons\Spell_Arcane_PortalSilvermoon">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(32267))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(32267))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fourthPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fourthPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(32267))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Silvermoon", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 40")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="port5" id="5" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="439" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="fifthPortHorde" file="Interface\Icons\Spell_Arcane_PortalStonard">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(49361))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(49361))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				fifthPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				fifthPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(49361))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Stonard", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 35")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="port6" id="6" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="530" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="sixthPortHorde" file="Interface\Icons\Spell_Arcane_PortalShattrath">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(35717))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(35717))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				sixthPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				sixthPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(35717))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Shattrath", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 65")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+	<Button name="port7" id="7" inherits="SecureActionButtonTemplate">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="621" y="-120"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="seventhPortHorde" file="Interface\Icons\Spell_Arcane_PortalDalaran">
+				</Texture>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlightTexture" alphaMode="add" file="Interface\Buttons\ButtonHilight-Square">
+		</HighlightTexture>
+		<PushedTexture name="$parentPushedTexture" alphaMode="add" file="Interface\Buttons\UI-Quickslot-Depress">
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				this:SetAttribute("type1", "spell")
+				this:SetAttribute("spell1", GetSpellInfo(53142))
+			</OnLoad>
+			<OnShow>
+				local localSpellName = (GetSpellInfo(53142))
+				
+			if (GetSpellInfo(localSpellName) ~= nil) then
+				this:SetHighlightTexture("Interface\Buttons\ButtonHilight-Square", add)
+				this:SetPushedTexture("Interface\Buttons\UI-Quickslot-Depress", add)
+				this:SetAlpha(1.0)
+				seventhPortHorde:SetDesaturated(false)
+			else
+				this:SetHighlightTexture(nil)
+				this:SetPushedTexture(nil)
+				this:SetAlpha(0.8)
+				seventhPortHorde:SetDesaturated(true)
+			end
+			</OnShow>
+			<OnEnter>
+				local localSpellName = (GetSpellInfo(53142))
+				
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:SetText("Portal: Dalaran", 1.0, 1.0, 1.0 )
+				if (GetSpellInfo(localSpellName) ~= nil) then
+				else
+				GameTooltip:AddLine("Trainable at level 74")
+				GameTooltip:AddLine("Not Learned")
+				end
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+	
+</Frames>
+</Frame>
+
+
+	<Button name="PortalBox_MinimapButton" parent="Minimap" frameStrata="MEDIUM" enableMouse="true" movable="true" hidden="false">
+
+		<Size>
+			<AbsDimension x="33" y="33"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="HIGH">
+				<Texture name="PortalBox_MinimapButton_Icon" file="Interface\Icons\Spell_Arcane_PortalIronforge">
+					<Size>
+						<AbsDimension x="21" y="21"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="7" y="-6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
+					<Size>
+						<AbsDimension x="56" y="56"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="PortalBox_MinimapButton_DraggingFrame" hidden="true">
+				<Scripts>
+					<OnUpdate>
+						PortalBox_MinimapButton_DraggingFrame_OnUpdate()
+					</OnUpdate>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp","RightButtonUp")
+				this:RegisterForDrag("LeftButton","RightButton")
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(this, ANCHOR_TOPLEFT);
+				GameTooltip:AddLine("PortalBox")
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+			<OnDragStart>
+				this:LockHighlight()
+				PortalBox_MinimapButton_DraggingFrame:Show()
+			</OnDragStart>
+			<OnDragStop>
+				this:UnlockHighlight()
+				PortalBox_MinimapButton_DraggingFrame:Hide()
+			</OnDragStop>
+			<OnClick>
+				PortalBox_MinimapButton_OnClick(arg1) -- do your thing in here, arg1 is mouse button clicked
+				
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Button name="PortalBox_MinimapButtonUnbound" parent="UIParent" frameStrata="MEDIUM" enableMouse="true" movable="true" hidden="false">
+
+		<Size>
+			<AbsDimension x="33" y="33"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="HIGH">
+				<Texture name="PortalBox_MinimapButton_Icon" file="Interface\Icons\Spell_Arcane_PortalIronforge">
+					<Size>
+						<AbsDimension x="21" y="21"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="7" y="-6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
+					<Size>
+						<AbsDimension x="56" y="56"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="PortalBox_MinimapButtonUnbound_DraggingFrame" hidden="true">
+				<Scripts>
+					<OnUpdate>
+						PortalBox_MinimapButtonUnbound_DraggingFrame_OnUpdate()
+					</OnUpdate>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp","RightButtonUp")
+				this:RegisterForDrag("LeftButton","RightButton")
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(this, ANCHOR_TOPLEFT);
+				GameTooltip:AddLine("PortalBox")
+				GameTooltip:Show()
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide()
+			</OnLeave>
+			<OnDragStart>
+				this:LockHighlight()
+				PortalBox_MinimapButtonUnbound_DraggingFrame:Show()
+			</OnDragStart>
+			<OnDragStop>
+				this:UnlockHighlight()
+				PortalBox_MinimapButtonUnbound_DraggingFrame:Hide()
+			</OnDragStop>
+			<OnClick>
+				PortalBox_MinimapButton_OnClick(arg1) -- do your thing in here, arg1 is mouse button clicked
+			</OnClick>
+		</Scripts>
+	</Button>
+
+</Ui>

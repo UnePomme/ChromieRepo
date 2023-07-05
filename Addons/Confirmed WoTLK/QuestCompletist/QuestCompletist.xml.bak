@@ -1,0 +1,499 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Button name="MenuButtonTemplate" virtual="true">
+	<Size>
+		<AbsDimension x="266" y="16"/>
+	</Size>
+	<Layers>
+		<Layer level="BORDER">
+			<Texture name="$parent_AvailableIcon" file="Interface\Addons\QuestCompletist\Images\AvailableQuestIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="2" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="$parent_DailyIcon" file="Interface\Addons\QuestCompletist\Images\DailyQuestIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="2" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="$parent_RepeatableIcon" file="Interface\Addons\QuestCompletist\Images\DailyActiveQuestIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="2" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="$parent_SpecialIcon" file="Interface\Addons\QuestCompletist\Images\SpecialQuestIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="2" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="$parent_CompleteIcon" file="Interface\Addons\QuestCompletist\Images\QuestCompleteIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="2" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<FontString name="$parent_QuestName" inherits="GameFontHighlightSmall" wraponspaces="false" justifyH="LEFT">
+				<Size>
+					<AbsDimension x="226" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="$parent_QuestTag" inherits="GameFontHighlightSmall" wraponspaces="false" justifyH="LEFT" hidden="true">
+				<Size>
+					<AbsDimension x="150" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="325" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<Texture name="$parent_AllianceIcon" file="Interface\Addons\QuestCompletist\Images\AllianceIcon"  hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="248" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+			<Texture name="$parent_HordeIcon" file="Interface\Addons\QuestCompletist\Images\HordeIcon" hidden="true">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="248" y="0"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<HighlightTexture alphaMode="ADD" file="Interface\BUTTONS\UI-Listbox-Highlight"/>
+	<Scripts>
+		<OnEnter>
+			<!-- TODO: Tooltips, etc -->
+		</OnEnter>
+		<OnLeave>
+			<!-- TODO: Tooltips, etc -->
+		</OnLeave>
+		<OnClick>
+			<!-- TODO: Tooltips, etc -->
+		</OnClick>
+		<OnMouseDown>
+			<!-- TODO: Tooltips, etc -->
+		</OnMouseDown>
+		<OnMouseUp>
+			<!-- TODO: Tooltips, etc -->
+		</OnMouseUp>
+	</Scripts>
+</Button>
+<Frame name="frameQuestCompletist" toplevel="true" parent="UIParent" enableMouse="true" movable="true">
+	<Size>
+		<AbsDimension x="384" y="512"/>
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER" relativePoint="CENTER" relativeTo="UIParent"/>
+	</Anchors>
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parent_Portrait" parentKey="Portrait" file="Interface\ICONS\TRADE_ARCHAEOLOGY_DRAENEI_TOME">
+				<Size>
+					<AbsDimension x="64" y="64"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="7" y="-4"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="$parent_titleText" parentKey="titleText" inherits="GameFontNormal" text="Quest Completist">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset x="0" y="-18"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="$parent_questCount" parentKey="questCount" inherits="GameFontNormalSmall" justifyH="RIGHT" text="### Quests Found">
+				<Size>
+					<AbsDimension x="145" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="190" y="-415"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\Addons\QuestCompletist\Images\TopLeft">
+				<Size>
+					<AbsDimension x="256" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\Addons\QuestCompletist\Images\TopRight">
+				<Size>
+					<AbsDimension x="128" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="qcXButton" inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="frameQuestCompletist">
+					<Offset>
+						<AbsDimension x="323" y="-9"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</Button>.
+		<CheckButton name="qcFactionCheckButton" inherits="UICheckButtonTemplate" checked="true">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="frameQuestCompletist">
+					<Offset>
+						<AbsDimension x="28" y="-358"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>qcFactionCheckButton_OnClick()	</OnClick>
+			</Scripts>
+		</CheckButton>
+		<CheckButton name="qcClassCheckButton" inherits="UICheckButtonTemplate" checked="true">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="frameQuestCompletist">
+					<Offset>
+						<AbsDimension x="28" y="-380"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>qcClassCheckButton_OnClick()</OnClick>
+			</Scripts>
+		</CheckButton>
+		<Button name="qcMenuButton1" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="35" y="-90"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(1)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton2" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton1"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(2)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton3" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton2"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(3)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton4" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton3"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(4)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton5" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton4"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(5)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton6" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton5"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(6)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton7" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton6"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(7)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton8" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton7"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(8)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton9" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton8"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(9)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton10" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton9"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(10)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton11" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton10"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(11)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton12" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton11"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(12)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton13" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton12"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(13)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton14" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton13"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(14)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton15" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton14"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(15)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcMenuButton16" inherits="MenuButtonTemplate">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="qcMenuButton15"/>
+			</Anchors>
+			<Scripts>
+				<OnEnter>
+					qcUpdateTooltip(16)
+				</OnEnter>
+				<OnLeave>
+					qcCloseTooltip()
+				</OnLeave>
+			</Scripts>
+		</Button>
+		<Button name="qcZoneDropdownButton" text="Zones" inherits="UIPanelButtonTemplate">
+			<Size>
+				<AbsDimension x="110" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="frameQuestCompletist">
+					<Offset>
+						<AbsDimension x="225" y="-46"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick>
+					qcZoneDropdownButton_OnClick(self, button, down)
+				</OnClick>
+			</Scripts>
+		</Button>
+		<Frame name="qcZoneDropdownMenu" inherits="UIDropDownMenuTemplate" frameStrata="FULLSCREEN_DIALOG">
+			<Scripts>
+				<OnLoad>
+					qcZoneDropdownOnLoad(self)
+				</OnLoad>
+			</Scripts>
+		</Frame>
+		<Slider name="qcMenuSlider" orientation="VERTICAL">
+			<Size>
+				<AbsDimension x="30" y="236"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="frameQuestCompletist">
+					<Offset>
+						<AbsDimension x="303" y="-100"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnLoad>
+					self:SetMinMaxValues(1,1)
+					self:SetValueStep(1.0)
+					self:SetValue(1)
+				</OnLoad>
+				<OnValueChanged>
+					qcScrollUpdate(value)
+				</OnValueChanged>
+			</Scripts>
+			<ThumbTexture name="$parent_ThumbTexture" file="Interface\Buttons\UI-ScrollBar-Knob">
+				<Size>
+					<AbsDimension x="32" y="32"/>
+				</Size>
+			</ThumbTexture>
+		</Slider>
+	</Frames>
+	<Scripts>
+		<OnLoad>
+			tinsert(UISpecialFrames, "frameQuestCompletist")
+			frameQuestCompletist_OnLoad(self)
+		</OnLoad>
+		<OnShow>
+			PlaySound("igCharacterInfoOpen")
+		</OnShow>
+		<OnHide>
+			PlaySound("igCharacterInfoClose")
+		</OnHide>
+		<OnDragStart>self:StartMoving()</OnDragStart>
+		<OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+		<OnMouseWheel>qcMenuMouseWheel(self, delta)</OnMouseWheel>
+	</Scripts>
+</Frame>
+</Ui>

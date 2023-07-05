@@ -1,0 +1,73 @@
+0.20.1 (20100) notes
+- bugfix default outgoing Raid Leader, Battlegrounds and BG Leader configuration
+- added <GM> incoming message sound (no configuration yet)
+- toc update to denote compatibility with WoW 2.1
+
+0.10.4 (20003) notes
+===============================================
+- fixed the Frame.xml error (bad argument to strupper)
+
+0.10.3 (20003) notes
+===============================================
+- Just a .toc update to denote compatibility with latest WoW patch (2.0.3)
+
+0.10.2 (20000) notes
+===============================================
+-WoW 2.0 and Burning Crusade compatibility update
+
+0.10 to 0.10.1 (11200) notes
+===============================================
+-Added several new sounds and changed around defaults.
+-Internal game sounds no longer selectable in dropdowns.
+(can be reactivated by uncommenting them in SoundList.lua)
+-Title in addons game menu updated to match the addon version.
+
+0.9 to 0.10 (11200) notes
+===============================================
+-Added support for the new Raid Leader (1.11), Battlegrounds and Battlegrounds Leader (1.12) channels.
+-Added many internal game sounds to SoundList.lua.
+-Before installing you should delete ChatSounds.lua and ChatSounds.lua.bak from
+/World of Warcraft/WTF/Account/<youraccountname>/SavedVariables/
+
+ChatSounds 0.8 (1600)
+===============================================
+I often miss guild and party messages popping up on my screen since they don't make a sound. I figured I'd make a mod to solve the problem. :)
+
+Features:
+-Can play new sounds for Guild, Officer, Party, Raid Messages and Whispers.
+-Force Whisper sounds for every whisper.
+-Allows users to /r after sending a whisper without getting a reply.
+-Has a Configuration Dialog Box which is accessable through the comic bubble icon next to the Chat Frame.
+-Saves its settings per character.
+
+[AlmostConnected] 
+[almost@technodookie.com]
+
+
+0.75 to 0.8 (1600) notes
+===============================================
+-Can now select incoming and outgoing sounds for each message type.
+-Can now add new sounds by editing SoundList.lua.
+-Before installing, you should probably delete any older ChatSounds.
+-Made new dialog box with drop down menus (oh, the pain).
+-A lot of code rewriting. Probably created some bugs. :)
+
+
+0.7 to 0.75 (1600) notes
+===============================================
+-Fixed disabled bags bug.
+
+
+0.6 to 0.7 (1600) notes
+===============================================
+-Fixed /r.
+-Can now /r after sending a whisper without getting a reply. (I didn't realize, but you normally can't.)
+-Changed how Whisper works so it should now work with timestamp mods. (Tested and works with JoChatTimeStamp mod.)
+-Thanks to the <ui.worldofwar.net> folks for your support and to the Curse Gaming folks for finding my bugs. :)
+
+
+0.5 to 0.6 (1600) notes
+===============================================
+-Added Officer and Raid Chat Sounds.
+-Added Force Whisper Sounds option which forces the whisper sound to be played every whisper.
+-Added Whisper Sound (turning off uses old sound).

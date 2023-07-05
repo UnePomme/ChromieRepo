@@ -1,0 +1,927 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\Interface\FrameXML\UI.xsd">
+  <Script file="DB\CM_Companion.lua" />
+  <Script file="DB\CM_Mount.lua" />
+  <Script file="DB\CM_MountInfo_en.lua" />
+  <Script file="DB\CM_CompanionInfo_en.lua" />
+  <Script file="CollectMe.lua" />
+  <Script file="Options.lua" />
+
+  <Button name="CollectMeScrollFrameButtonTemplate" virtual="true">
+    <Size><AbsDimension x="296" y="38" /></Size>
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" />
+    </Anchors>
+    <Frames>
+      <Button name="$parentIcon">
+        <Size><AbsDimension x="36" y="36" /></Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+            <Offset><AbsDimension x="25" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Frame>
+        <Size><AbsDimension x="250" y="36" /></Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="$parentIcon" relativePoint="RIGHT">
+            <Offset><AbsDimension x="5" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <FontString name="$parentText" inherits="GameFontHighlightSmall" text="scroll item text">
+              <Anchors>
+                <Anchor point="LEFT" />
+              </Anchors>
+            </FontString>
+            <FontString name="$parentItemID" inherits="GameFontHighlightSmall" hidden="true">
+              <Anchors>
+                <Anchor point="LEFT" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Frame name="$parentDropDownInactivateMenu" inherits="UIDropDownMenuTemplate" id="1">
+        <Scripts>
+          <OnLoad>
+              UIDropDownMenu_Initialize(self, CollectMe_DropDownInactivateMenuOnLoad, "MENU");
+          </OnLoad>
+        </Scripts>
+      </Frame>
+      <Frame name="$parentDropDownActivateMenu" inherits="UIDropDownMenuTemplate" id="2">
+        <Scripts>
+          <OnLoad>
+              UIDropDownMenu_Initialize(self, CollectMe_DropDownActivateMenuOnLoad, "MENU");
+          </OnLoad>
+        </Scripts>
+      </Frame>
+    </Frames>
+    <HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD" />
+    <Scripts>
+      <OnLoad>
+        self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+      </OnLoad>
+      <OnClick>
+        if ( arg1 == "RightButton" ) then
+            CollectMe_ScrollItemRightClicked(self);
+        elseif( arg1 == "LeftButton" ) then
+            CollectMe_ModelHandler(self);
+        end
+      </OnClick>
+      <OnEnter>
+        CollectMe_ScrollItemMouseOver(self);
+      </OnEnter>
+      <OnLeave>
+        CollectMeInfoFrame:Hide();
+      </OnLeave>
+    </Scripts>
+  </Button>
+
+  <Button name="CollectMeScrollHeaderTemplate" hidden="true" virtual="true">
+    <Size><AbsDimension x="285" y="38" /></Size>
+    <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-MinusButton-UP">
+      <Size><AbsDimension x="16" y="16" /></Size>
+      <Anchors>
+        <Anchor point="LEFT">
+          <Offset><AbsDimension x="3" y="0" /></Offset>
+        </Anchor>
+      </Anchors>
+    </NormalTexture>
+    <HighlightTexture file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+      <Size><AbsDimension x="16" y="16" /></Size>
+      <Anchors>
+        <Anchor point="LEFT">
+          <Offset><AbsDimension x="3" y="0" /></Offset>
+        </Anchor>
+      </Anchors>
+    </HighlightTexture>
+    <DisabledTexture file="Interface\Buttons\UI-PlusButton-Disabled">
+      <Size><AbsDimension x="16" y="16" /></Size>
+      <Anchors>
+        <Anchor point="LEFT">
+          <Offset><AbsDimension x="3" y="0" /></Offset>
+        </Anchor>
+      </Anchors>
+    </DisabledTexture>
+    <ButtonText name="$parentText">
+      <Anchors>
+        <Anchor point="LEFT">
+          <Offset><AbsDimension x="25" y="0" /></Offset>
+        </Anchor>
+      </Anchors>
+    </ButtonText>
+    <NormalFont style="GameFontHighlightLeft" />
+    <HighlightFont style="GameFontNormalLeft" />
+    <Scripts>
+      <OnClick>
+        CollectMe_ScrollHeaderClicked(self:GetText());
+      </OnClick>
+      <OnLeave>
+        GameTooltip:Hide();
+      </OnLeave>
+    </Scripts>
+  </Button>
+
+  <Slider name="CollectMeSliderTemplate" virtual="true" inherits="OptionsSliderTemplate">
+    <Size>
+		  <AbsDimension x="280" y="16"/>
+		</Size>
+		<Anchors>
+		  <Anchor point="LEFT" relativeTo="$parent">
+		    <Offset><AbsDimension x="0" y="0"/></Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentCreatureID" hidden="true" inherits="GameFontHighlight">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="BOTTOM"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				this:SetMinMaxValues(0,10);
+				this:SetValueStep(1);
+				getglobal(this:GetName().."High"):SetText("10");
+				getglobal(this:GetName().."Low"):SetText("0");
+			</OnLoad>
+			<OnValueChanged>
+        CollectMeSlider_Change( getglobal(this:GetName().."CreatureID"):GetText(), this:GetValue() );
+      </OnValueChanged>
+		</Scripts>
+	</Slider>
+	
+	<Button name="CollectMePanelScrollFrameButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="800" y="50"/>
+		</Size>
+	</Button>
+
+  <Frame name="CollectMeFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true" >
+    <Size><AbsDimension x="348" y="436" /></Size>
+    <Anchors>
+      <Anchor point="CENTER">
+        <Offset><AbsDimension x="0" y="0" /></Offset>
+      </Anchor>
+    </Anchors>
+    <TitleRegion>
+      <Size><AbsDimension x="348" y="30" /></Size>
+      <Anchors>
+        <Anchor point="TOP" />
+      </Anchors>
+    </TitleRegion>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+          <Size><AbsDimension x="210" y="256" /></Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset><AbsDimension x="45" y="6" /></Offset>
+            </Anchor>
+          </Anchors>
+          <TexCoords left="0.34" right="1" top="0" bottom="1" />
+        </Texture>
+        <Texture name="upperLeft" file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+          <Size><AbsDimension x="128" y="256" /></Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset><AbsDimension x="-31" y="6" /></Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+          <Size><AbsDimension x="256" y="12" /></Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset><AbsDimension x="-8" y="-250" /></Offset>
+            </Anchor>
+          </Anchors>
+          <TexCoords left="0" right="1" top="0.97" bottom="1" />
+        </Texture>
+        <Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+          <Size><AbsDimension x="128" y="256" /></Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT">
+              <Offset><AbsDimension x="28" y="6" /></Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+          <Size><AbsDimension x="128" y="12" /></Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT">
+              <Offset><AbsDimension x="28" y="-250" /></Offset>
+            </Anchor>
+          </Anchors>
+          <TexCoords left="0" right="1" top="0.97" bottom="1" />
+        </Texture>
+        <Texture file="Interface\TalentFrame\UI-TalentFrame-BotLeft">
+          <Size><AbsDimension x="256" y="256" /></Size>
+          <Anchors>
+            <Anchor point="BOTTOMLEFT">
+              <Offset><AbsDimension x="-8" y="-82" /></Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\TalentFrame\UI-TalentFrame-BotRight">
+          <Size><AbsDimension x="128" y="256" /></Size>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT">
+              <Offset><AbsDimension x="28" y="-82" /></Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+
+    <Frames>
+      <Frame name="$parentHeaderFrame">
+        <Size><AbsDimension x="340" y="64" /></Size>
+        <Anchors>
+          <Anchor point="TOP">
+            <Offset><AbsDimension x="0" y="2" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="$parentText" inherits="GameFontNormal" text="Collect Me">
+              <Anchors>
+                <Anchor point="TOP">
+                  <Offset><AbsDimension x="0" y="-15" /></Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+
+      <Button inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="TOPRIGHT">
+            <Offset><AbsDimension x="-2" y="-18"/></Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      
+      <Button inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="TOPLEFT">
+            <Offset><AbsDimension x="0" y="-18"/></Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      
+      <Button inherits="UIPanelButtonTemplate" text="Options">
+        <Size><AbsDimension x="80" y="22" /></Size>
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+            <Offset><AbsDimension x="-14" y="-1" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            InterfaceOptionsFrame_OpenToCategory(CollectMePanel);
+          </OnClick>
+        </Scripts>
+      </Button>
+      
+      <Button inherits="UIPanelButtonTemplate" parent="PetPaperDollFrameCompanionFrame" text="Collect Me">
+        <Size><AbsDimension x="80" y="22" /></Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="CompanionNextPageButton" relativePoint="RIGHT">
+            <Offset><AbsDimension x="5" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            CollectMe_OpenFromButton( PetPaperDollFrameCompanionFrame.mode );
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <StatusBar name="$parentStatusBar" minValue="0" maxValue="100" defaultValue="0">
+        <Size><AbsDimension x="234" y="16" /></Size>
+        <Anchors>
+          <Anchor point="BOTTOMLEFT">
+            <Offset><AbsDimension x="15" y="1" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="$parentText" inherits="GameFontHighlightSmall" text="Making Progress">
+              <Anchors><Anchor point="CENTER" /></Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Button>
+            <Size><AbsDimension x="243" y="36" /></Size>
+            <Anchors>
+              <Anchor point="CENTER" />
+            </Anchors>
+            <NormalTexture file="Interface\PaperDollInfoFrame\UI-Character-Skills-BarBorder" />
+          </Button>
+        </Frames>
+        <BarTexture file="Interface\PaperDollInfoFrame\UI-Character-Skills-Bar" />
+        <BarColor r="0.25" g="0.25" b="0.75" />
+      </StatusBar>
+
+      <ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate">
+        <Size><AbsDimension x="302" y="342" /></Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset><AbsDimension x="5" y="-70" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+              <Size><AbsDimension x="30" y="128"/></Size>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+                  <Offset><AbsDimension x="-2" y="5"/></Offset>
+                </Anchor>
+              </Anchors>
+              <TexCoords left="0" right="0.46875" top="0.0" bottom="1.0"/>
+            </Texture>
+            <Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+              <Size><AbsDimension x="30" y="128"/></Size>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+                  <Offset><AbsDimension x="-2" y="-114"/></Offset>
+                </Anchor>
+              </Anchors>
+              <TexCoords left="0" right="0.46875" top="0.3" bottom="1.0" />
+            </Texture>
+            <Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+              <Size><AbsDimension x="30" y="128"/></Size>
+              <Anchors>
+                <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+                  <Offset><AbsDimension x="-2" y="-2"/></Offset>
+                </Anchor>
+              </Anchors>
+              <TexCoords left="0.53125" right="1.0" top="0.0" bottom="1.0"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnVerticalScroll>
+            FauxScrollFrame_OnVerticalScroll(self, offset, COLLECTME_LIST_ITEM_HEIGHT, CollectMeScrollFrameUpdate);
+          </OnVerticalScroll>
+          <OnShow>
+            CollectMeScrollFrameUpdate()
+          </OnShow>
+        </Scripts>
+      </ScrollFrame>
+
+      <Button name="$parentScrollFrameButton1" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrame" relativePoint="TOPLEFT">
+            <Offset><AbsDimension x="8" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton2" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton1" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton3" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton2" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton4" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton3" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton5" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton4" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton6" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton5" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton7" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton6" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton8" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton7" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameButton9" inherits="CollectMeScrollFrameButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameButton8" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+
+      <Button name="$parentScrollFrameHeader1" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrame" relativePoint="TOPLEFT">
+            <Offset><AbsDimension x="8" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader2" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader1" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader3" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader2" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader4" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader3" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader5" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader4" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader6" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader5" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader7" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader6" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader8" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader7" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+      <Button name="$parentScrollFrameHeader9" inherits="CollectMeScrollHeaderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameHeader8" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Button>
+
+      <Button name="$parentTab1" inherits="TabButtonTemplate" text="Companions" id="1">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrame">
+            <Offset><AbsDimension x="16" y="37" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+              PanelTemplates_TabResize(self, 0);
+          </OnLoad>
+          <OnClick>
+              CollectMe_Update(COLLECTME_CRITTER);
+              PanelTemplates_SetTab(self:GetParent(), COLLECTME_CRITTER);
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button name="$parentTab2" inherits="TabButtonTemplate" text="Mounts" id="2">
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+              PanelTemplates_TabResize(self, 0);
+          </OnLoad>
+          <OnClick>
+              CollectMe_Update(COLLECTME_MOUNT);
+              PanelTemplates_SetTab(self:GetParent(), COLLECTME_MOUNT);
+          </OnClick>
+        </Scripts>
+      </Button>
+      
+      <DressUpModel name="CollectMeModel" hidden="true">
+				<Size>
+					<AbsDimension x="300" y="250"/>
+				</Size>
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+            <Offset><AbsDimension x="-5" y="0" /></Offset>
+          </Anchor>
+        </Anchors>
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" bgFile="Interface\Tooltips\UI-Tooltip-Background" tile="true">
+          <BackgroundInsets>
+            <AbsInset left="4" right="4" top="4" bottom="4"/>
+          </BackgroundInsets>
+          <EdgeSize>
+            <AbsValue val="16"/>
+          </EdgeSize>
+          <Color r="0" g="0" b="0" a="1"/>
+          <BorderColor r="255" g="255" b="255" a="1"/>
+        </Backdrop>
+				<Scripts>
+					<OnLoad>
+						Model_OnLoad(self);
+						self:RegisterEvent("DISPLAY_SIZE_CHANGED");
+					</OnLoad>
+					<OnEvent>
+						self:RefreshUnit();
+					</OnEvent>
+					<OnUpdate function="Model_OnUpdate"/>
+				</Scripts>
+				<Frames>
+				  <Button inherits="UIPanelCloseButton">
+            <Anchors>
+              <Anchor point="RIGHT" relativePoint="TOPRIGHT">
+                <Offset><AbsDimension x="-2" y="-18"/></Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+					<Button name="CollectMeModelRotateLeftButton">
+						<Size>
+							<AbsDimension x="35" y="35"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="CollectMeModel">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self:RegisterForClicks("LeftButtonDown", "LeftButtonUp");
+							</OnLoad>
+							<OnClick>
+								Model_RotateLeft(CollectMeModel);
+							</OnClick>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\UI-RotationLeft-Button-Up"/>
+						<PushedTexture file="Interface\Buttons\UI-RotationLeft-Button-Down"/>
+						<HighlightTexture file="Interface\Buttons\ButtonHilight-Round" alphaMode="ADD"/>
+					</Button>
+					<Button name="CollectMeModelRotateRightButton">
+						<Size>
+							<AbsDimension x="35" y="35"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="CollectMeModelRotateLeftButton" relativePoint="TOPRIGHT"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self:RegisterForClicks("LeftButtonDown", "LeftButtonUp");
+							</OnLoad>
+							<OnClick>
+								Model_RotateRight(CollectMeModel);
+							</OnClick>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\UI-RotationRight-Button-Up"/>
+						<PushedTexture file="Interface\Buttons\UI-RotationRight-Button-Down"/>
+						<HighlightTexture file="Interface\Buttons\ButtonHilight-Round" alphaMode="ADD"/>
+					</Button>
+				</Frames>
+			</DressUpModel>
+    </Frames>
+    <Scripts>
+			<OnLoad>
+			  PanelTemplates_SetNumTabs(self, 2);
+				CollectMe_OnLoad();
+			</OnLoad>
+			<OnEvent>
+			  CollectMe_OnEvent(event);
+			</OnEvent>
+		</Scripts>
+
+  </Frame>
+  
+  <Frame name="CollectMeInfoFrame" parent="UIParent" hidden="true">
+    <Size><AbsDimension x="200" y="150" /></Size>
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeTo="CollectMeFrame" relativePoint="TOPRIGHT">
+        <Offset><AbsDimension x="-5" y="-10" /></Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" bgFile="Interface\Tooltips\UI-Tooltip-Background" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="4" right="4" top="4" bottom="4"/>
+      </BackgroundInsets>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+      <Color r="0" g="0" b="0" a="1"/>
+      <BorderColor r="255" g="255" b="255" a="1"/>
+    </Backdrop>
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString name="$parentText" inherits="GameFontHighlightSmall" text="Info">
+          <Size><AbsDimension x="180" y="130" /></Size>
+          <Anchors>
+            <Anchor point="TOP" relativePoint="TOP">
+              <Offset><AbsDimension x="0" y="0" /></Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+  
+  <Frame name="CollectMePanel" parent="UIParent">
+    <Frames>
+  		<CheckButton name="$parentCheckButton1" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parent">
+  				<Offset><AbsDimension x="20" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Enable 3D Model Preview"); </OnLoad>
+  				<OnClick> CollectMePanel_OnClick("preview"); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton2" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton1">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Call random companion on moving forward"); </OnLoad>
+  				<OnClick> CollectMePanel_OnClick("moving"); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton3" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton2">
+  				<Offset><AbsDimension x="0" y="-50"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide Collect me summon button"); </OnLoad>
+  				<OnClick> CollectMePanel_OnClick("button_hide"); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton4" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton3">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Lock Collect me summon button"); </OnLoad>
+  				<OnClick> CollectMePanel_OnClick("button_lock"); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton5" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton4">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("When PVP flagged, dismiss current pet and don't auto-summon"); </OnLoad>
+  				<OnClick> CollectMePanel_OnClick("disableonpvp"); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  	</Frames>
+  	<Scripts>
+      <OnLoad>
+        CollectMePanel_OnLoad(self);
+      </OnLoad>
+      <OnShow>
+        CollectMePanel_OnShow();
+      </OnShow>
+    </Scripts> 
+  </Frame>
+
+  <Frame name="CollectMePanelFilter" parent="UIParent">
+  	<Frames>
+  		<CheckButton name="$parentCheckButton1" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parent">
+  				<Offset><AbsDimension x="20" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide no longer obtainable companions"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "ComNlo" , COLLECTME_CRITTER); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton2" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton1">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide promotional companions"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "ComChi" , COLLECTME_CRITTER ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton3" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton2">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide Trading Card Game companions"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "ComTcg" , COLLECTME_CRITTER ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton4" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton3">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide PvP companions"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "ComPvp" , COLLECTME_CRITTER ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton8" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton4">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide Collector's Edition companions"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "ComCol" , COLLECTME_CRITTER ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton5" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton8">
+  				<Offset><AbsDimension x="0" y="-60"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide no longer obtainable mounts"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "MouNlo" , COLLECTME_MOUNT ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton6" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton5">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide PvP and Arena mounts"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "MouPvp" , COLLECTME_MOUNT ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  		<CheckButton name="$parentCheckButton7" inherits="OptionsCheckButtonTemplate">
+  			<Anchors>
+  				<Anchor point="TOPLEFT" relativeTo="$parentCheckButton6">
+  				<Offset><AbsDimension x="0" y="-30"/></Offset>
+  				</Anchor>
+  			</Anchors>
+  			<Scripts>
+  				<OnLoad> getglobal(this:GetName().."Text"):SetText("Hide Trading Card Game mounts"); </OnLoad>
+  				<OnClick> CollectMePanelFilterOption_OnClick( "MouTcg" , COLLECTME_MOUNT ); </OnClick>
+  			</Scripts>
+  		</CheckButton>
+  	</Frames>
+  	<Scripts>
+      <OnLoad>
+        CollectMePanelFilter_OnLoad(self);
+      </OnLoad>
+      <OnShow>
+        CollectMePanelFilter_OnShow();
+      </OnShow>
+    </Scripts>
+  </Frame>
+  
+  <Frame name="CollectMePanelRndCom">
+  	<Frames>
+      <Slider name="$parentScrollFrameSlider1" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+            <Offset><AbsDimension x="15" y="-20" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider2" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider1" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider3" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider2" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider4" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider3" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider5" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider4" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider6" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider5" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider7" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider6" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <Slider name="$parentScrollFrameSlider8" inherits="CollectMeSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentScrollFrameSlider7" relativePoint="BOTTOMLEFT">
+            <Offset><AbsDimension x="0" y="-30" /></Offset>
+          </Anchor>
+        </Anchors>
+      </Slider>
+      <ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate">
+        <Size><AbsDimension x="300" y="380" /></Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset><AbsDimension x="10" y="-10" /></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnVerticalScroll>
+            FauxScrollFrame_OnVerticalScroll(self, offset, 50, CollectMePanelScrollFrameUpdate);
+          </OnVerticalScroll>
+          <OnShow>
+            CollectMePanelScrollFrameUpdate()
+          </OnShow>
+        </Scripts>
+      </ScrollFrame>
+  	</Frames>
+  	<Scripts>
+      <OnLoad>
+        CollectMePanelRndCom_OnLoad(self);
+      </OnLoad>
+      <OnShow>
+        CollectMePanelRndCom_OnShow(self);
+      </OnShow>
+    </Scripts>
+  </Frame>
+  
+  <Button name="CollectMeButtonFrame" parent="UIParent" toplevel="true" enableMouse="true" movable="true">
+    <Size><AbsDimension x="35" y="35" /></Size>
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER">
+        <Offset><AbsDimension x="0" y="0" /></Offset>
+      </Anchor>
+    </Anchors>
+    <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" bgFile="Interface\Tooltips\UI-Tooltip-Background" tile="true">
+      <BackgroundInsets>
+        <AbsInset left="4" right="4" top="4" bottom="4"/>
+      </BackgroundInsets>
+      <EdgeSize>
+        <AbsValue val="16"/>
+      </EdgeSize>
+    </Backdrop>
+    <Scripts>
+      <OnLoad>
+        self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+        self:RegisterForDrag("LeftButton");
+      </OnLoad>
+      <OnClick>
+        if ( arg1 == "RightButton" ) then
+            CollectMe_SkipCompanion();
+        elseif( arg1 == "LeftButton" ) then
+            if ( IsShiftKeyDown() == 1 ) then
+                CollectMe_Dismisser(self);
+            else
+                CollectMe_SummonCompanion();
+            end
+        end
+      </OnClick>
+      <OnDragStart>
+          CollectMe_OnDragStart();
+      </OnDragStart>
+      <OnDragStop>
+          CollectMe_OnDragStop();
+      </OnDragStop>
+    </Scripts>
+  </Button>
+  
+</Ui>

@@ -1,0 +1,72 @@
+﻿local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_Trainers", "esES")
+if not L then return end
+
+--
+-- DO NOT MODIFY!
+--
+-- These localizations are generated automatically from WowAce Localization Tool
+-- Please use this URL to edit:
+--
+-- http://www.wowace.com/addons/handy-notes_trainers/localization/esES/
+--
+
+-- L["Alchemy"] = "Alchemy"
+-- L["Blacksmithing"] = "Blacksmithing"
+L["Close"] = "Cerrar"
+L["Cold Weather Flying Trainer"] = "Maestro de Vuelo en Clima Frío"
+-- L["Cold Weather Flying Trainer - Female"] = "Cold Weather Flying Trainer"
+-- L["Cooking"] = "Cooking"
+L["Create waypoint"] = "Crear punto de ruta"
+-- L["Deathknight Trainer"] = "Deathknight Trainer"
+-- L["Deathknight Trainer - Female"] = "Deathknight Trainer"
+L["Delete trainer"] = "Eliminar entrenador"
+L["Demon Trainer"] = "Entrenador de Demonios"
+-- L["Druid Trainer"] = "Druid Trainer"
+-- L["Druid Trainer - Female"] = "Druid Trainer"
+-- L["Enchanting"] = "Enchanting"
+-- L["Engineering"] = "Engineering"
+-- L["First Aid"] = "First Aid"
+-- L["Fishing"] = "Fishing"
+-- L["Goblin Engineering Trainer"] = "Goblin Engineering Trainer"
+-- L["Goblin Engineering Trainer - Female"] = "Goblin Engineering Trainer"
+-- L["HandyNotes - Trainers"] = "HandyNotes - Trainers"
+-- L["Herbalism"] = "Herbalism"
+-- L["Hunter Trainer"] = "Hunter Trainer"
+-- L["Hunter Trainer - Female"] = "Hunter Trainer"
+-- L["Icon Alpha"] = "Icon Alpha"
+-- L["Icon Scale"] = "Icon Scale"
+-- L["Inscription"] = "Inscription"
+-- L["Jewelcrafting"] = "Jewelcrafting"
+-- L["Leatherworking"] = "Leatherworking"
+-- L["Mage Trainer"] = "Mage Trainer"
+-- L["Mage Trainer - Female"] = "Mage Trainer"
+-- L["Mechanostrider Pilot"] = "Mechanostrider Pilot"
+-- L["Mechanostrider Pilot - Female"] = "Mechanostrider Pilot"
+-- L["Mining"] = "Mining"
+-- L["Paladin Trainer"] = "Paladin Trainer"
+-- L["Paladin Trainer - Female"] = "Paladin Trainer"
+-- L["Pet Trainer"] = "Pet Trainer"
+-- L["Pet Trainer - Female"] = "Pet Trainer"
+-- L["Portal Trainer"] = "Portal Trainer"
+-- L["Portal Trainer - Female"] = "Portal Trainer"
+-- L["Priest Trainer"] = "Priest Trainer"
+-- L["Priest Trainer - Female"] = "Priest Trainer"
+-- L["Riding Trainer"] = "Riding Trainer"
+-- L["Riding Trainer - Female"] = "Riding Trainer"
+-- L["Rogue Trainer"] = "Rogue Trainer"
+-- L["Rogue Trainer - Female"] = "Rogue Trainer"
+-- L["Shaman Trainer"] = "Shaman Trainer"
+-- L["Shaman Trainer - Female"] = "Shaman Trainer"
+-- L["Skinning"] = "Skinning"
+-- L["Tailoring"] = "Tailoring"
+-- L["The alpha transparency of the icons"] = "The alpha transparency of the icons"
+-- L["The scale of the icons"] = "The scale of the icons"
+-- L["These settings control the look and feel of the Trainers icons."] = "These settings control the look and feel of the Trainers icons."
+-- L["Trainer"] = "Trainer"
+-- L["Warlock Trainer"] = "Warlock Trainer"
+-- L["Warlock Trainer - Female"] = "Warlock Trainer"
+-- L["Warrior Trainer"] = "Warrior Trainer"
+-- L["Warrior Trainer - Female"] = "Warrior Trainer"
+-- L["Weapon Master"] = "Weapon Master"
+-- L["Weapon Master - Female"] = "Weapon Master"
+

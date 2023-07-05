@@ -1,0 +1,21 @@
+## Title: CollectMe
+## Notes: Displays a list of mounts and pets which the character is missing and allows auto summoning of pet
+
+## Authors: Merla, Tolerant, DesertDwarf
+## X-Author-Server: Antonidas EU, Gorefiend
+## X-Author-Faction: Alliance
+## eMail: merla AT reloaded-guild DOT net
+## X-email: merla AT reloaded-guild DOT net
+## X-License: MIT modified with notification clause
+
+## Interface: 30300
+## Version: 1.1.14
+
+## X-credits: SkeeveSM (TheCollector), wowwiki
+
+## Dependencies:
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariablesPerCharacter: CollectMeSavedVars
+
+CollectMe.xml

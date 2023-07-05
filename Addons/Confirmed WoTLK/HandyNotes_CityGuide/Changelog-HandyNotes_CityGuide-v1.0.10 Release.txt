@@ -1,0 +1,27 @@
+------------------------------------------------------------------------
+r27 | zarevak | 2010-01-22 21:07:47 +0000 (Fri, 22 Jan 2010) | 4 lines
+Changed paths:
+   A /tags/v1.0.10 Release (from /trunk:26)
+
+Tagging as v1.0.10 Release.
+- koKR translation by "cakehouse"
+- ruRU translation by "Zuz666"
+Thank you both!
+------------------------------------------------------------------------
+r26 | zarevak | 2010-01-22 20:59:58 +0000 (Fri, 22 Jan 2010) | 2 lines
+Changed paths:
+   M /trunk/HandyNotes_CityGuide.toc
+   A /trunk/Locales/koKR.lua
+   A /trunk/Locales/ruRU.lua
+
+koKR translation by "cakehouse"
+ruRU translation by "Zuz666"
+------------------------------------------------------------------------
+r24 | zarevak | 2009-12-27 05:28:44 +0000 (Sun, 27 Dec 2009) | 2 lines
+Changed paths:
+   M /trunk/HandyNotes_CityGuide.toc
+   M /trunk/addon.lua
+
+trying to fix ticket #3 - Error on 'Callstabledpet'
+this will temporarily disable guild banks, which will be enabled with new Mailbox and Barber support in v1.1.x line of the addon
+------------------------------------------------------------------------

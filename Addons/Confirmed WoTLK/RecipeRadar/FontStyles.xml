@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<UI xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+
+   <Font name="RecipeRadarAlliance" inherits="GameFontNormalLeft" virtual="true">
+		<Color r="0.5" g="0.625" b="1.0"/>
+	</Font>
+   <Font name="RecipeRadarHorde" inherits="GameFontNormalLeft" virtual="true">
+		<Color r="1.0" g="0.125" b="0.25"/>
+	</Font>
+   <Font name="RecipeRadarNeutral" inherits="GameFontNormalLeft" virtual="true">
+		<Color r="1.0" g="0.82" b="0.0"/>
+	</Font>
+   
+   <Font name="RecipeRadarAllianceHighlight" inherits="GameFontHighlightLeft" virtual="true">
+		<Color r="0.7" g="0.825" b="1.0"/>
+	</Font>
+   <Font name="RecipeRadarHordeHighlight" inherits="GameFontHighlightLeft" virtual="true">
+		<Color r="1.0" g="0.325" b="0.45"/>
+	</Font>
+   <Font name="RecipeRadarNeutralHighlight" inherits="GameFontHighlightLeft" virtual="true">
+		<Color r="1.0" g="1.0" b="0.2"/>
+	</Font>
+
+   <Font name="RecipeRadarGray" inherits="GameFontNormalLeft" virtual="true">
+		<Color r="0.9" g="0.9" b="0.9"/>
+	</Font>
+   <Font name="RecipeRadarDarkGray" inherits="GameFontNormalLeft" virtual="true">
+		<Color r="0.75" g="0.75" b="0.75"/>
+	</Font>
+   <Font name="RecipeRadarGrayHighlight" inherits="GameFontHighlightLeft" virtual="true">
+		<Color r="1.0" g="1.0" b="1.0"/>
+	</Font>
+   <Font name="RecipeRadarDarkGrayHighlight" inherits="GameFontHighlightLeft" virtual="true">
+		<Color r="0.95" g="0.95" b="0.95"/>
+	</Font>
+
+</UI>

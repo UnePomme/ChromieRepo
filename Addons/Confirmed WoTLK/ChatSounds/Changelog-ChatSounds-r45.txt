@@ -1,0 +1,22 @@
+------------------------------------------------------------------------
+r45 | dridzt | 2010-07-02 11:02:54 +0000 (Fri, 02 Jul 2010) | 2 lines
+Changed paths:
+   M /trunk/ChatSounds.lua
+   M /trunk/ChatSounds.toc
+   M /trunk/ChatSoundsOptionsFrame.lua
+   M /trunk/ChatSoundsOptionsFrame.xml
+   M /trunk/SoundList.lua
+
+- 3.3.5 compatibility
+- add support for BNet (Real ID) whispers.
+------------------------------------------------------------------------
+r44 | dridzt | 2010-04-17 14:42:58 +0000 (Sat, 17 Apr 2010) | 2 lines
+Changed paths:
+   M /trunk/ChatSounds.lua
+   M /trunk/ChatSounds.toc
+   M /trunk/ChatSoundsOptionsFrame.lua
+   M /trunk/ChatSoundsOptionsFrame.xml
+
+- Party Leader option added
+- 3.3.3 compatible
+------------------------------------------------------------------------

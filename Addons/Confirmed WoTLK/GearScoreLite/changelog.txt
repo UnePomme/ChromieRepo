@@ -1,0 +1,203 @@
+*Version 1.84
+-Refactor tooltip requests to start expiration at request time instead of response time
+
+-----------------------------------------------------------------------
+
+*Version 1.83
+-Fix DKP color when Net:0
+
+-----------------------------------------------------------------------
+
+*Version 1.82
+-Remove Chat Filter
+
+-----------------------------------------------------------------------
+
+*Version 1.81
+-DKP reader now requires CanViewOfficerNote() (bug was fixed)
+
+-----------------------------------------------------------------------
+
+*Version 1.80
+-Tooltips are now saved per character instead of account
+
+-----------------------------------------------------------------------
+
+*Version 1.77
+-Updated download link
+
+-----------------------------------------------------------------------
+
+*Version 1.76
+-Added new command to only show iLvl on players
+-Personal GS is now moved down if iLvl is hidden
+
+-----------------------------------------------------------------------
+
+*Version 1.75
+-Fixed a bug with negative dkp net
+
+-----------------------------------------------------------------------
+
+*Version 1.74
+-Super magic shit
+
+-----------------------------------------------------------------------
+
+*Version 1.73
+-Bug Fixes
+--Corrected invalid DKP values being shown
+--Corrected a possible loop
+
+-Modified DKP module
+--DKP is now enabled by default, but hidden if not found
+--DKP cap is now guild wide instead of account wide
+
+-----------------------------------------------------------------------
+
+*Version 1.72
+-Modified dkp module
+--Cleaned some code
+--Rewrote the DKP color function to scale using GearScore_GetQuality();
+
+-Re-enabled the item level option on items
+--Now toggled using /gs level
+
+-Moved iLevel on paperdoll frame to the iLevel setting
+--Toggled with /gs ilevel
+
+-----------------------------------------------------------------------
+
+*Version 1.71
+-Modified updater
+--Version check is sent to guild on login
+--Changed some code for cleaner scripting
+
+-----------------------------------------------------------------------
+
+*Version 1.70
+-Fixed a crash bug with alt loops in dkp.
+
+-----------------------------------------------------------------------
+
+*Version 1.69
+-Bug fixes.
+--Resolved AFK/BUSY spam on mouseover.
+
+-----------------------------------------------------------------------
+
+*Version 1.68
+-Bug fixes.
+--v1.67 introduced a bug that spammed chat on mouseovers, now resolved.
+
+-----------------------------------------------------------------------
+
+*Version 1.67
+-Fixed tooltips.
+--Tooltips were not properly showing when GS was 0
+
+-Added /gs version
+--Manually check your addon version and available updates.
+
+-Fixed a bug with npcs
+--NPCs are no longer requested for tooltips. (No more spam)
+
+-----------------------------------------------------------------------
+
+*Version 1.66
+-Corrected security checks.
+--GuildRoster() is now called after confirming you're in a guild.
+
+-----------------------------------------------------------------------
+
+*Version 1.65
+-Bypass CanViewOfficerNote() security
+--Thanks to a recent bug on Molten this is exploitable.
+
+-Updated Alt checking method
+--The function is now in a loop so you can be on an alt linked to an alt.
+
+-----------------------------------------------------------------------
+
+*Version 1.64
+-Show item ID on mouseover
+--Helpful for future developement.
+
+-----------------------------------------------------------------------
+
+*Version 1.63
+-Fixed a bug with Unknown names and tooltips.
+--Unknown names are no longer checked because they aren't valid.
+
+-Changed version format
+--Versions now start in this format: Base.ReleasePatch (1.63)
+--Why? Because this is so much easier to manage.
+
+-Addon cleanup
+--Revised a few functions to shorten code and execution time.
+--Added comments to functions.
+--It was needed.. Badly.
+
+-----------------------------------------------------------------------
+
+*Version 1.62
+-Patched a bug with tooltips.
+--No more blank tooltips between updates.
+
+-Updated the Updater.
+--Yours and the most recent versions are now shown when an update is
+--found.
+
+-----------------------------------------------------------------------
+
+*Version 1.61
+-It does not exist.
+
+-----------------------------------------------------------------------
+
+*Version 1.60
+-Reverted to default informationLite->Special table.
+--Replaced my old "Pauses. In. Your. Head." message with the new
+--tooltip system.
+--ANYONE with a current version can add their own message now.
+
+-Added customizable tooltips for everyone.
+--New command: /gs tip (some message)
+--It shows some message under your GS in the tooltip for anyone
+--with a current version.
+--The addon will only request updates every 1min.
+--The tooltip has a 40 character limit to prevent:
+--http://i.imgur.com/zFLJd80.jpg
+
+-Added version checker.
+--Every time you enter an instance with saves the addon will send
+--out a broadcast requesting everyone's versions. If a version is
+--found that is newer than yours, a notification will be shown.
+
+-DKP module updated.
+--It now supports anything in the following format: "Net:0 Tot:0"
+--Where Net and Tot can be ANYTHING as long as it's in that order.
+
+-Re-enabled the combat check.
+--This was needed to lower addon messaging spam and cpu usage on
+every mouseover due to the way my new tooltips work.
+
+-----------------------------------------------------------------------
+
+*Version 1.50
+-Added QDKP2 Support by Sixtyninee
+--Reads notes in the "Net:0 Tot:0 Hrs:0" format.
+
+-Optimized iLvl & GS calculations.
+--Cleaned up code, mostly updated calls to the most recent API.
+
+-Removed combat check
+--Combat bugs. 'nuff said.
+
+-----------------------------------------------------------------------
+
+*Change Log 1.40
+-Fixed an error with GS less over 6000.
+-GS will now be reduced on un-enchanted items that are enchantable. 
+-Remember that gems are always shown as empty by initial API calls so
+I cant determine if gems are missing or not.

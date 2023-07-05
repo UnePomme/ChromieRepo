@@ -1,0 +1,13 @@
+------------------------------------------------------------------------
+r122 | pneumatus | 2010-06-30 22:22:39 +0000 (Wed, 30 Jun 2010) | 1 line
+Changed paths:
+   A /tags/v2.3.2 (from /trunk:121)
+
+Tagging as v2.3.2
+------------------------------------------------------------------------
+r121 | pneumatus | 2010-03-19 21:25:17 +0000 (Fri, 19 Mar 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/ClassIcon.lua
+
+Add in a few new class icons for creature types that managed to sneak into the Babble lib when I wasn't watching.
+------------------------------------------------------------------------

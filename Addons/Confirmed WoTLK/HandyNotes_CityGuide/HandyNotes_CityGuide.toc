@@ -1,0 +1,30 @@
+﻿## Interface: 30300
+## Title: HandyNotes_CityGuide
+## Notes: Database of important locations for HandyNotes
+## Author: zarevak
+## Version: 1.0.10
+## X-Category: Map
+## X-eMail: zarevak at gmail dot com
+## SavedVariables: HandyNotes_CityGuideDB
+## X-Curse-Packaged-Version: v1.0.10 Release
+## X-Curse-Project-Name: HandyNotes_CityGuide
+## X-Curse-Project-ID: handy-notes_city-guide
+## X-Curse-Repository-ID: wow/handy-notes_city-guide/mainline
+
+## RequiredDeps: HandyNotes
+## OptionalDeps: Ace3, TomTom
+## DefaultState: Enabled
+
+## X-Credits: kergoth, ckknight, Xinhuan, ckeurk (frFR), andy52005 (deDE), cakehouse (koKR), Zuz666 (ruRU)
+## X-License: GPL v3 or later
+
+# Locale files
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\frFR.lua
+Locales\koKR.lua
+Locales\ruRU.lua
+Locales\zhTW.lua
+
+# Core files
+addon.lua

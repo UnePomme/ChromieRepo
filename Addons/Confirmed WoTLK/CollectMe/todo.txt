@@ -1,0 +1,6 @@
+- On some machines there are problems with the nextCompanion method when entering the world
+- Add more complete info on locations for mounts and pets that are not specific enough
+- Allow size to be set for pet summon button
+- Add tooltip to show names when mousing over summon button
+- Add option to turn off missing pet/companion notifications
+

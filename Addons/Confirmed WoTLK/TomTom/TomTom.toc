@@ -1,0 +1,36 @@
+## Interface: 40000
+## Title: TomTom
+## Author: jnwhiteh
+## Version: v40000-1.0.0 
+## Notes: Acts as your portable navigation assistant
+## Notes-zhCN:一个简单的导航助手。
+## Notes-ruRU: Удобный портативный навигатор по игровой карте
+## Author: Cladhaire
+## SavedVariables: TomTomDB, TomTomWaypoints
+
+## X-Localizations: enUS, enGB, deDE, zhCN, ruRU, zhTW
+## X-CompatibleLocales: enUS, enGB, deDE, frFR, esES, esMX, zhCN, zhTW, koKR, ruRU
+
+libs\Astrolabe\Load.xml
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+libs\AceGUI-3.0\AceGUI-3.0.xml
+libs\AceConfig-3.0\AceConfig-3.0.xml
+libs\AceEvent-3.0\AceEvent-3.0.xml
+libs\AceDB-3.0\AceDB-3.0.xml
+libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+
+Localization.enUS.lua
+Localization.deDE.lua
+Localization.zhCN.lua
+Localization.ruRU.lua
+Localization.zhTW.lua
+
+TomTom.lua
+TomTom_Waypoints.lua
+TomTom_CrazyArrow.lua
+TomTom_Corpse.lua
+TomTom_POIIntegration.lua
+
+TomTom_Config.lua

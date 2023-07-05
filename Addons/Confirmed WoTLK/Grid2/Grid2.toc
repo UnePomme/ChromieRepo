@@ -1,0 +1,40 @@
+## Interface: 30300
+## Title: Grid2
+## Notes: A modular, lightweight and screen-estate saving grid of party/raid unit frames
+## Notes-esES: Marcos de unidades de raid compactos y ligeros.
+## Notes-ruRU: Модульный, легкий, отображающий на экране область группы/рейда в виде сетки.
+## Notes-zhCN: 小巧的轻量级模块化队伍框架
+## Notes-zhTW: 精簡的團隊框架功能
+
+## Author: Kader (|cff808080bkader#5341|r)
+## Version: r736
+## OptionalDeps: Ace3, Clique
+## LoadOnDemand: 0
+## DefaultState: enabled
+## SavedVariables: Grid2DB
+
+## X-Date: 2022-06-19 @ 07:55 PM |cff808080UTC|r
+## X-Credits: Michael, Pastamancer & Maia, Jerry, Toadkiller
+## X-Category: UnitFrame
+## X-Email: |cff20ff20bkader@mail.com|r
+## X-Website: https://github.com/bkader/Grid2-WoTLK
+## X-Discord: |cff20ff20https://discord.gg/a8z5CyS3eW|r
+
+embeds.xml
+templates.xml
+locales.xml
+
+GridCore.lua
+GridUtils.lua
+GridRoster.lua
+GridLayout.lua
+GridLayoutLayouts.lua
+GridFreeLayout.lua
+GridFrame.lua
+GridUnitPopup.lua
+GridIndicator.lua
+GridStatus.lua
+GridSetup.lua
+GridDefaults.lua
+
+modules.xml

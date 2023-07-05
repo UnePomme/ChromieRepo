@@ -1,0 +1,12 @@
+## Interface: 30300
+## Title: GearScoreLite
+## Notes: Quickly and easily judge a player's level of Gear. QDKP2 Reader by Leo.
+## Version: 1.84
+## Author: Mirrikat45 & Leo
+## SavedVariables: GS_Settings GS_Guilds GS_Guids GS_MyTip
+
+informationLite.lua
+GearScoreLite.lua
+GearScoreDKP.lua
+GearScoreTips.lua
+GearScoreUpdates.lua

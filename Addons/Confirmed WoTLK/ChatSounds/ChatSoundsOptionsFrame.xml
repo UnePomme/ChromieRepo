@@ -1,0 +1,340 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\FrameXML\UI.xsd">
+
+	<Script file="SoundList.lua"/>
+	<Script file="ChatSounds.lua"/>
+	<Script file="ChatSoundsOptionsFrame.lua"/>
+
+	<!-- Note: Used OptionsFrame.xml for reference. -->
+	<Frame name="ChatSoundsDropDownTemplate" inherits="UIDropDownMenuTemplate" enableMouse="true" hidden="false"  virtual="true">
+		<Scripts>
+			<OnShow>
+				ChatSoundsDropDown_OnShow ( self );
+			</OnShow>
+		</Scripts>
+	</Frame>
+	
+	<Frame name="ChatSoundsGroupTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="433" y="25"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentLabel" inherits="GameFontNormal" text="Label" justifyH="CENTER">
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="55" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentIncoming" inherits="ChatSoundsDropDownTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="88" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentOutgoing" inherits="ChatSoundsDropDownTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="247" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+		</Frames>
+	</Frame>
+
+	<!-- Note: Used SoundOptionsFrame.xml for reference. -->
+	<Frame name="ChatSoundsOptionsFrame" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent" enableKeyboard="true">
+		<Size>
+			<AbsDimension x="433" y="478"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="410" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentTitle" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentHeader">
+							<Offset>
+								<AbsDimension x="0" y="-14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentChannelLabel" inherits="GameFontNormal" text="Channel" justifyH="CENTER">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="55" y="-35"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentIncomingLabel" inherits="GameFontNormal" text="Incoming" justifyH="CENTER">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="170" y="-35"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentOutgoingLabel" inherits="GameFontNormal" text="Outgoing" justifyH="CENTER">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="329" y="-35"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+
+			<!-- Stuff Goes Here! -->
+			<Frame name="$parentGroup1" inherits="ChatSoundsGroupTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent">
+						<Offset>
+							<AbsDimension x="0" y="-60"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup2" inherits="ChatSoundsGroupTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup1">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup3" inherits="ChatSoundsGroupTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup2">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup4" inherits="ChatSoundsGroupTemplate" id="4">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup3">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup5" inherits="ChatSoundsGroupTemplate" id="5">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup4">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup6" inherits="ChatSoundsGroupTemplate" id="6">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup5">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup7" inherits="ChatSoundsGroupTemplate" id="7">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup6">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup8" inherits="ChatSoundsGroupTemplate" id="8">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup7">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup9" inherits="ChatSoundsGroupTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup8">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup10" inherits="ChatSoundsGroupTemplate" id="10">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup9">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentGroup11" inherits="ChatSoundsGroupTemplate" id="11">
+				<Anchors>
+					<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentGroup10">
+						<Offset>
+							<AbsDimension x="0" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			
+			<CheckButton name="$parentForceWhispersCheckBox" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentGroup11">
+						<Offset>
+							<AbsDimension x="50" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+
+			<Button name="$parentDefaultsButton" inherits="OptionsButtonTemplate" text="DEFAULTS">
+				<Size>
+					<AbsDimension x="100" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="14" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound ("gsTitleOptionOK");
+						ChatSoundsOptionsFrame_OnDefaults ( self );
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentCancelButton" inherits="OptionsButtonTemplate" text="CANCEL">
+				<Size>
+					<AbsDimension x="100" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-14" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound ("gsTitleOptionExit");
+						HideUIPanel (ChatSoundsOptionsFrame);
+						ChatSoundsOptionsFrame_OnCancel ( self );
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentOkayButton" inherits="OptionsButtonTemplate" text="OKAY">
+				<Size>
+					<AbsDimension x="100" y="21"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeTo="$parentCancelButton">
+						<Offset>
+							<AbsDimension x="-4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound ("gsTitleOptionOK");
+						HideUIPanel (ChatSoundsOptionsFrame);
+						ChatSoundsOptionsFrame_OnOkay ( self );
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				ChatSoundsOptionsFrame_OnLoad ( self );
+				ChatSoundsOptionsFrameTitle:SetText ("ChatSounds "..ChatSounds_Version);
+
+				-- Things I can't get to with XML:
+				ChatSoundsOptionsFrameGroup1Label:SetText("Guild");
+				ChatSoundsOptionsFrameGroup2Label:SetText("Officer");
+				ChatSoundsOptionsFrameGroup3Label:SetText("Party");
+				ChatSoundsOptionsFrameGroup4Label:SetText("Party Leader");
+				ChatSoundsOptionsFrameGroup5Label:SetText("Raid");
+				ChatSoundsOptionsFrameGroup6Label:SetText("Raid Leader");
+				ChatSoundsOptionsFrameGroup7Label:SetText("BattleGrounds");
+				ChatSoundsOptionsFrameGroup8Label:SetText("BG Leader");
+				ChatSoundsOptionsFrameGroup9Label:SetText("Whispers");
+				ChatSoundsOptionsFrameGroup10Label:SetText("BNET Whispers");
+				ChatSoundsOptionsFrameGroup11Label:SetText("Custom");
+
+				ChatSoundsOptionsFrameForceWhispersCheckBoxText:SetText("Always play incoming whisper sounds.");
+				ChatSoundsOptionsFrameForceWhispersCheckBoxText:SetTextHeight(12);
+				ChatSoundsOptionsFrameForceWhispersCheckBoxText:SetTextColor(1.0, 1.0, 1.0);
+			</OnLoad>
+			<OnEvent>
+				ChatSoundsOptionsFrame_OnEvent (self, event, ...);
+			</OnEvent>
+			<OnShow>
+				ChatSoundsOptionsFrame_OnShow ( self );
+				UpdateMicroButtons ( self );
+				Disable_BagButtons ( self );
+			</OnShow>
+			<OnKeyDown>
+				ChatSoundsOptionsFrame_KeyDown( key );
+			</OnKeyDown>
+			<OnHide>
+				UpdateMicroButtons ( self );
+				Enable_BagButtons ( self );
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+
+</Ui>

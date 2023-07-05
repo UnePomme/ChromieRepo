@@ -1,0 +1,12 @@
+## Interface: 30300
+## Title: ChatSounds 0.3.8(30300)
+## Author: Driizt@BBEU
+## X-Credits: Driizt, AlmostConnected (original author) 
+## Notes: Enables user defined sounds for Party, Guild and Raid chat messages.
+## SavedVariables: ChatSounds_Config
+## X-Curse-Packaged-Version: r45
+## X-Curse-Project-Name: ChatSounds
+## X-Curse-Project-ID: chat-sounds
+## X-Curse-Repository-ID: wow/chat-sounds/mainline
+ChatSounds.xml
+ChatSoundsOptionsFrame.xml

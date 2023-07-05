@@ -1,0 +1,59 @@
+## Interface: 30300
+## Title: SimpleUnitFrames
+## Notes: An extension to the default WoW Unit Frames.
+## Version: v2.3.2
+## Author: Pneumatus
+## X-Credits: Rophy, Xan
+## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibBabble-CreatureType-3.0, LibDogTag-3.0, LibDogTag-Unit-3.0, LibSharedMedia-3.0
+## SavedVariables: SimpleUnitFramesDB
+## X-Curse-Packaged-Version: v2.3.2
+## X-Curse-Project-Name: SimpleUnitFrames
+## X-Curse-Project-ID: simple-unit-frames
+## X-Curse-Repository-ID: wow/simple-unit-frames/mainline
+
+#@no-lib-strip@
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+Libs\AceConsole-3.0\AceConsole-3.0.xml
+Libs\AceDB-3.0\AceDB-3.0.xml
+Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceHook-3.0\AceHook-3.0.xml
+Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\LibBabble-CreatureType-3.0\lib.xml
+Libs\LibDogTag-3.0\lib.xml
+Libs\LibDogTag-Unit-3.0\lib.xml
+Libs\LibSharedMedia-3.0\lib.xml
+Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
+#@end-no-lib-strip@
+
+# Locales
+Locales\enUS.lua
+Locales\frFR.lua
+Locales\koKR.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
+
+SimpleUnitFrames.lua
+
+# Modules
+Modules\ClassIcon.lua
+Modules\TextOverlay.lua
+Modules\CustomStyle.lua
+Modules\PortraitDamage.lua
+Modules\BarTexture.lua
+
+# Frames
+Frames\Player.lua
+Frames\PlayerAlternatePower.lua
+Frames\Pet.lua
+Frames\Target.lua
+Frames\TargetOfTarget.lua
+Frames\Party.lua
+Frames\PartyPet.lua
+Frames\Focus.lua
+Frames\FocusTarget.lua
+Frames\Boss.lua

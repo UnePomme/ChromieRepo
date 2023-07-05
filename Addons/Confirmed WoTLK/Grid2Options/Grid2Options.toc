@@ -1,0 +1,27 @@
+## Interface: 30300
+## Title: Grid2 |cd0ff7d0aOptions|r
+## Title-esES: Grid2 |cd0ff7d0aOpciones|r
+## Notes: Configuration module for Grid2
+## Notes-esES: Modulo de configuracion del Grid2
+
+## Author: Kader (|cff808080bkader#5341|r)
+## Version: r736
+## Dependencies: Grid2
+## LoadOnDemand: 1
+## DefaultState: disabled
+
+## X-Date: 2022-05-17 @ 08:39 PM |cff808080UTC|r
+## X-Credits: Michael, Pastamancer & Maia, Jerry, Toadkiller
+## X-Category: UnitFrame
+## X-Email: |cff20ff20bkader@mail.com|r
+## X-Website: https://github.com/bkader/Grid2-WoTLK
+## X-Discord: |cff20ff20https://discord.gg/a8z5CyS3eW|r
+
+embeds.xml
+locales.xml
+GridCore.lua
+GridUtils.lua
+GridGeneral.lua
+GridIndicators.lua
+GridStatuses.lua
+modules.xml

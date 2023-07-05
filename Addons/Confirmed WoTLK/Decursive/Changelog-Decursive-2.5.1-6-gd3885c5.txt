@@ -1,0 +1,9 @@
+Archarodim:
+	- - Added X-Max-Interface and X-Min-Interface to toc
+	- - fix "Dcr_lists.lua:140: attempt to index local 'frame' (a nil value)" introduced in b03f6b93f98
+	- - Added Fear (rank 1) for Warlocks to use on charmed units
+	- WoW 4.0: Added support for 'Singe Magic' imp spell for Warlocks and changed 'Devour Magic' to 'enemy magic' only.
+	- WoW 4.0: Removed rank for Polymorph
+	- - fixed changelog in .pkgmeta
+	- - Fix missing spell reporting in WoW 4.0
+	- WoW 4.0 basic compatibility (this --> self, etc...)

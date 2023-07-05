@@ -1,0 +1,22 @@
+## Interface: 30300
+## Title: HandyNotes_Guild
+## Notes: Display front-end for LibGuildPositions-1.0 using HandyNotes
+## Author: Nevcairiel
+## Version: 1.0
+## X-Category: Map
+## X-Email: h.leppkes at gmail dot com
+## SavedVariables: HandyNotes_GuildDB
+## Dependencies: HandyNotes
+## OptionalDeps: LibGuildPositions-1.0
+## X-Curse-Packaged-Version: 1.2
+## X-Curse-Project-Name: HandyNotes_Guild
+## X-Curse-Project-ID: handynotes_guild
+## X-Curse-Repository-ID: wow/handynotes_guild/mainline
+
+#@no-lib-strip@
+libs\LibGuildPositions-1.0\lib.xml
+libs\AceTimer-3.0\AceTimer-3.0.xml
+libs\AceBucket-3.0\AceBucket-3.0.xml
+#@end-no-lib-strip@
+
+GuildNotes.lua
