@@ -1,0 +1,5 @@
+Chris Heald (3):
+      c4acdc7: Initial commit. Go forth and have less sucky load times.
+      4cb14c0: Add .pkgmeta so that the addon actually loads before everything else
+      87ef990: YAML seems to dislike unquoted BANG BANG BANGs
+

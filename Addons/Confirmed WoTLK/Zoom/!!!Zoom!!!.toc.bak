@@ -1,0 +1,7 @@
+## Interface: 30000
+## Title: Zoom
+## Notes: Speed up your UI load by turning off garbage collection
+## Author: Antiarc
+## X-Curse-Packaged-Version: r20081215111719
+
+mod.lua
