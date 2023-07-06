@@ -3,239 +3,240 @@
 ```Addons
 !Swatter
 Size: 0.06 MB
-Description: 
+Description: lua error tracker
 ---------------------------
 ACP
 Size: 0.12 MB
-Description: 
+Description: Addon Control Panel (esc menu for addon control)
 ---------------------------
 AllStats
 Size: 0.05 MB
-Description: 
+Description: Shows all character stats in character frame (with off/on toggle button)
 ---------------------------
 Altoholic
 Size: 2.35 MB
-Description: 
+Description: Keeps track of your alts
 ---------------------------
 Altoholic_Achievements
 Size: 0.04 MB
-Description: 
+Description: Keeps track of your alts achievements
 ---------------------------
 AtlasLoot
 Size: 2.15 MB
-Description: 
+Description: Provides in game loot tables for instances
 ---------------------------
 AtlasLootFu
 Size: 0.46 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 AtlasLoot_BurningCrusade
 Size: 1.30 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 AtlasLoot_Crafting
 Size: 0.49 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 AtlasLoot_OriginalWoW
 Size: 1.36 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 AtlasLoot_WorldEvents
 Size: 0.28 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 AtlasLoot_WrathoftheLichKing
 Size: 2.96 MB
-Description: 
+Description: Used in AtlasLoot
 ---------------------------
 Bagnon
 Size: 0.23 MB
-Description: 
+Description: S Tier bag manager
 ---------------------------
 Bagnon_Config
 Size: 0.05 MB
-Description: 
+Description: Used in Bagnon
 ---------------------------
 Bagnon_Forever
 Size: 0.01 MB
-Description: 
+Description: Used in Bagnon
 ---------------------------
 Bagnon_GuildBank
 Size: 0.03 MB
-Description: 
+Description: Used in Bagnon
 ---------------------------
 Bagnon_Tooltips
 Size: 0.00 MB
-Description: 
+Description: Used in Bagnon
 ---------------------------
 Bartender4
 Size: 0.78 MB
-Description: 
+Description: S Tier Action bar manager
 ---------------------------
 BlizzMove
 Size: 0.01 MB
-Description: 
+Description: Allows you to move any bliz frame within the blizzmove ui (esc menu)
 ---------------------------
 ButtonFacade
 Size: 0.44 MB
-Description: 
+Description: Adds extra action bar skins for addons like Bartender4
 ---------------------------
 ChatSounds
 Size: 0.14 MB
-Description: 
+Description: Provides a configurable sound notification for all messages in chat (guild, party, raid...etc)
 ---------------------------
 Clique
 Size: 0.32 MB
-Description: 
+Description: Adds on click macro abilities (in talent menu)
 ---------------------------
 CollectMe
 Size: 0.14 MB
-Description: 
+Description: Provides a tracking system for all of your collectables (and adds random summon pet button)
 ---------------------------
 Cromulent
 Size: 0.26 MB
-Description: 
+Description: Provides fishing and level data for world map
 ---------------------------
 DataStore
 Size: 0.22 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Achievements
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Auctions
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Characters
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Containers
 Size: 0.07 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Crafts
 Size: 0.40 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Currencies
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Inventory
 Size: 0.54 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Mails
 Size: 0.03 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Pets
 Size: 0.02 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Quests
 Size: 0.02 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Reputations
 Size: 0.06 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Skills
 Size: 0.05 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Spells
 Size: 0.00 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Stats
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DataStore_Talents
 Size: 0.01 MB
-Description: 
+Description: Used in Altaholic
 ---------------------------
 DBM-main
 Size: 28.07 MB
-Description: 
+Description: Deadly Boss Mod provides sounds, alerts, and cooldowns for bosses
 ---------------------------
 Decursive
 Size: 2.35 MB
-Description: 
+Description: Provides an easy UI to remove debuffs
 ---------------------------
 Details
 Size: 17.23 MB
-Description: 
+Description: Provides a simple DPS/Damage meter
 ---------------------------
 Details_TinyThreat
 Size: 0.03 MB
-Description: 
+Description: Provides a threat meter that hooks into details
 ---------------------------
 EasyLoot
 Size: 0.09 MB
-Description: 
+Description: Provides a fully configurable loot option, such as what to pick up, and even pickup & destroy with value limits.
 ---------------------------
 EveryQuest
 Size: 1.36 MB
-Description: 
+Description: Updated EveryQuest addon that provides an on map note system that shows all available quests
+Credit: https://github.com/NethanosGit/EveryQuest
 ---------------------------
 EveryQuest_Battlegrounds
 Size: 0.01 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Classes
 Size: 0.06 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Dungeons
 Size: 0.05 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Eastern_Kingdoms
 Size: 0.11 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Kalimdor
 Size: 0.12 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Miscellaneous
 Size: 0.02 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Northrend
 Size: 0.13 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Outland
 Size: 0.09 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Professions
 Size: 0.02 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_QuestGivers
 Size: 0.21 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_Raids
 Size: 0.04 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 EveryQuest_World_Events
 Size: 0.05 MB
-Description: 
+Description: Used in EveryQuest
 ---------------------------
 Factionizer
 Size: 0.52 MB
-Description: 
+Description: Provides detailed information on the reputation menu, such as what quests, instances, and items you can use to increase rep
 ---------------------------
 GearScoreLite
 Size: 0.05 MB
