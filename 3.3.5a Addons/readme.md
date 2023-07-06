@@ -430,7 +430,7 @@ Description: Displays the best item to craft to level when opening your crafting
 ---------------------------
 Quartz
 Size: 1.07 MB
-Description: Provides a detailed player/enemy castbar/swingbar, and allows moveable quest, durability, and castbar frames
+Description: Provides a detailed and movable player/enemy castbar/swingbar
 ---------------------------
 QuestCompletist
 Size: 0.84 MB
@@ -454,7 +454,7 @@ Description: Used in Scrap
 ---------------------------
 SexyMap
 Size: 0.82 MB
-Description: Fully configurable minimap
+Description: Fully configurable minimap, and movable quest/durability frames
 Note: Addon Interface > SexyMap > Buttons > Standard & Addon tabs provide show/hide configuration of minimap buttons
 ---------------------------
 SimpleUnitFrames
