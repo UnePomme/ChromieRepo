@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+r63 | nevcairiel | 2008-10-09 21:51:12 +0000 (Thu, 09 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/ChatThrottleLib.lua
+   M /trunk/ChatThrottleStats.lua
+
+WoWAce Post-Processing: Virtually inflate Library Revision numbers for proper upgrade path
+------------------------------------------------------------------------
+r62 | root | 2008-09-29 22:14:43 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   A /trunk/.pkgmeta
+
+Facilitate WowAce-on-CurseForge transition
+------------------------------------------------------------------------
+r60 | root | 2008-09-29 20:57:44 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   D /tmp/trunk/ChatThrottleLib
+   A /trunk (from /tmp/trunk/ChatThrottleLib:59)
+
+Importing old repo data under /trunk
+------------------------------------------------------------------------
