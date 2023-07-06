@@ -1,7 +1,7 @@
 ## Title: Configator |cff224477(lib)
 ## Notes: Configator allows authors to easily construct a graphical user configuration interface.
 ##
-## Interface: 30300
+## Interface: 40000
 ## LoadOnDemand: 0
 ##
 ## Version: 5.9.4960 (WhackyWallaby)

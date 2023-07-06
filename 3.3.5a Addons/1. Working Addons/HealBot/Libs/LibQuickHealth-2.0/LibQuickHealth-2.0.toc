@@ -1,4 +1,4 @@
-## Interface: 30300
+## Interface: 20400
 ## Title: Lib: QuickHealth-2.0
 ## Author: Tifi, Cncfanatics
 ## X-Donate: PayPal: diego.duclos@gmail.com

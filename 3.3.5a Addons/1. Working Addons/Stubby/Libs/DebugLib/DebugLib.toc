@@ -1,7 +1,7 @@
 ## Title: DebugLib |cff224477(lib)
 ## Notes: A embeddable debugging library that transparently supports the nLog logging system, if present.
 ##
-## Interface: 30300
+## Interface: 40000
 ## LoadOnDemand: 0
 ## OptionalDependencies: !nLog
 ##

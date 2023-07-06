@@ -1,4 +1,4 @@
-## Interface: 30300
+## Interface: 30200
 ## Title: Lib: ChatThrottleLib
 ## Notes: Embeddable chat throttling library with traffic shaping and priorities
 ## Author: Mikk

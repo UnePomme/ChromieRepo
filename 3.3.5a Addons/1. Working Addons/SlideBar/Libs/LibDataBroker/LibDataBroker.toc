@@ -1,4 +1,4 @@
-## Interface: 30300
+## Interface: 40000
 ## LoadOnDemand: 1
 ## Title: Lib: LibDataBroker-1.1
 ## Notes: LDB's primary goal is to "detach" plugins for TitanPanel and FuBar from the display addon.
