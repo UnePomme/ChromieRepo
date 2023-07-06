@@ -1,6 +1,14 @@
 ## Working Addons
 
 ```Addons
+Folder: Attune
+Size: 1.97 MB
+Description: Provides information on attunements
+---------------------------
+Folder: AuctionHouseDepositFixer
+Size: 0.00 MB
+Description: Updates the auction house deposit cost for ChromieCraft
+---------------------------
 !Swatter
 Size: 0.06 MB
 Description: lua error tracker
