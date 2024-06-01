@@ -1,3 +1,9 @@
+![This image will be deleted and you will be accused of spreading hate against homophobes.
+
+Happy Pride Month. ]([http://full/path/to/img.jpg](https://chromiecraft.fandom.com/wiki/ChromieCraft_Wiki?file=FVEigzGagAAC4Ae.jpg) "Optional title")
+
+
+
 # ChromieRepo
  Contains addons for ChromieCraft (World of Warcraft 3.3.5a/30300)
 
