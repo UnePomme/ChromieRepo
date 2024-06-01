@@ -1,4 +1,3 @@
-### This image will be deleted and you will be accused of spreading hate against homophobes. 
 ### Happy Pride Month <3
 ![This image will be deleted and you will be accused of spreading hate against homophobes](https://static.wikia.nocookie.net/chromiecraft/images/e/e0/FVEigzGagAAC4Ae.jpg)
 
